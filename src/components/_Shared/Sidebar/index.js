@@ -115,7 +115,7 @@ export default function SidebarComponent({ props, navigation }) {
                     <HStack space={7} alignItems="center">
                       <Icon
                         color='gray.500'
-                        size={5} as={<Feather name="corner-left-down" size={24} color="#fff" />} />
+                        size={5} as={<AntDesign name="logout" size={24} color="#fff" />} />
                       <TouchableOpacity
                         onPress={() => {
                           navigation.navigate('Login')

@@ -1,5 +1,5 @@
 import React from "react"
-import { StyleSheet, Text, View, ImageBackground, Dimensions } from 'react-native'
+import { StyleSheet, Text, View, ImageBackground, Dimensions, ScrollView } from 'react-native'
 import { Stack, Center, Heading, IconButton, Icon, Button, NativeBaseProvider } from "native-base"
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -9,6 +9,7 @@ export default function DashboardComponent({ navigation }) {
   const image = require('../../../assets/bgn.png');
   const { height } = Dimensions.get('window');
   return (
+      <ScrollView style={{ height }}>
     <ImageBackground source={image} style={{ height }}>
       <NativeBaseProvider>
         <Stack space={5} mt={0} height={'80%'}>
@@ -38,8 +39,8 @@ export default function DashboardComponent({ navigation }) {
                 shadow={3}
                 mr={5}
               >
-                <MaterialIcons name="report" size={30} color="#fff" />
-                Reporting
+                <AntDesign name="setting" size={30} color="#fff" />
+                Paramètre
               </Center>
               <Center
                 bg="#c3b27f"
@@ -82,8 +83,8 @@ export default function DashboardComponent({ navigation }) {
                 shadow={3}
                 mr={5}
               >
-                <FontAwesome name="list" size={24} color="#fff" />
-                Liste des tickets
+                <FontAwesome name="money" size={28} color="#fff" />
+                  Tickets Vendu
               </Center>
               <Center
                 bg="#c3b27f"
@@ -98,8 +99,8 @@ export default function DashboardComponent({ navigation }) {
                 shadow={3}
                 ml={5}
               >
-                <AntDesign name="setting" size={28} color="#fff" />
-                Paramètre
+                <MaterialIcons name="qr-code-scanner" size={28} color="#fff" />
+                Tickets Scannés
               </Center>
             </Stack>
             {/*  */}
@@ -125,9 +126,9 @@ export default function DashboardComponent({ navigation }) {
             Scanner un ticket
           </Button>
         </Stack>
-
       </NativeBaseProvider>
     </ImageBackground>
+        </ScrollView>
   )
 }
 

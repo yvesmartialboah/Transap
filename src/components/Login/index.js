@@ -15,9 +15,13 @@ import {
   IconButton,
   HStack,
   Divider,
-  Image
+  Image,
+  Stack,
+  Center,
 } from 'native-base';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import * as Animatable from 'react-native-animatable';
 import SplashScreen from 'react-native-splash-screen';
 const { height } = Dimensions.get('window');
@@ -83,7 +87,7 @@ export default function LoginComponent({ navigation }) {
           </Animatable.View>
         </View>
         <View style={styles.lineSecond}>
-          <Text style={styles.text}>ALI TRANSPORT</Text>
+          <Text style={styles.text}>I-TRANSPORT</Text>
         </View>
       </Box>
 
@@ -162,12 +166,60 @@ export default function LoginComponent({ navigation }) {
             </Link> */}
           </FormControl>
           <VStack space={2}>
-            <Button onPress={()=>{navigation.navigate('Dashboard')}} style={styles.btn} _text={{ color: 'white' }}>
+            <Button onPress={()=>{navigation.navigate('Dashboard')}} 
+            style={styles.btn} 
+            _text={{ color: 'white', fontWeight: 'bold' }}
+            startIcon={<AntDesign name="login" size={24} color="#fff" />}
+            >
                 Continue
             </Button>
 
            
           </VStack>
+           {/* Première Ligne */}
+           <Stack space={5} mt={5} justifyContent="space-between" alignItems="center">
+            {/*  */}
+            <Stack direction={'row'} space={5} mb={0} style={styles.stack}>
+              <Center
+                size={70}
+                bg="#c3b27f"
+                width={'47%'}
+                rounded={10}
+                _text={{
+                  color: "white",
+                  fontSize: 12,
+                  fontWeight: 'bold'
+                }}
+                shadow={3}
+                // mr={5}
+              >
+                <MaterialCommunityIcons name="api" size={30} color="#fff" />
+                Lien du serveur
+              </Center>
+              <Center
+                bg="#c3b27f"
+                size={70}
+                width={'47%'}
+                rounded={10}
+                _text={{
+                  color: "white",
+                  fontSize: 12,
+                  fontWeight: 'bold'
+                }}
+                shadow={3}
+                // ml={5}
+              >
+                <MaterialIcons name="flip-camera-ios" size={30} color="#fff" />
+                Changer le logo
+              </Center>
+            </Stack>
+            {/*  */}
+
+
+          </Stack>
+      {/* Première Ligne */}
+
+
           <HStack justifyContent="center">
             <View style={styles.bar}></View>
           </HStack>
