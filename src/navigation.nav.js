@@ -10,6 +10,8 @@ import SidebarComponent from './components/_Shared/Sidebar/index';
 // Pages
 import LoginComponent from './components/Login/index';
 import DashboardComponent from './components/Dashboard/index';
+import ParamServeurComponent from './components/ParamServeur/ParamServeur';
+import ParamLogoComponent from './components/ParamLogo/ParamLogo';
 import FolderComponent from './components/Folder/Folder.component';
 import AddFeatComponent from './components/AddFeat/AddFeat.component';
 import SinistreComponent from './components/Sinistre/Sinistre.component';
@@ -24,6 +26,8 @@ const NavigationApp = ({}) => (
         >
             <Drawer.Screen options={{ swipeEnabled: false }} name="Login" component={LoginComponent} />
             <Drawer.Screen options={{ swipeEnabled: false }} name="Dashboard" component={DashboardComponent} options={{headerLeft: () => null}}/>
+            <Drawer.Screen options={{ swipeEnabled: false }} name="ParamServeur" component={ParamServeurComponent} />
+            <Drawer.Screen options={{ swipeEnabled: false }} name="ParamLogo" component={ParamLogoComponent} />
             <Drawer.Screen options={{ swipeEnabled: false }} name="Folder" component={FolderComponent} />
             <Drawer.Screen options={{ swipeEnabled: false }} name="AddFeat" component={AddFeatComponent} />
             <Drawer.Screen options={{ swipeEnabled: false }} name="Sinistre" component={SinistreComponent} />

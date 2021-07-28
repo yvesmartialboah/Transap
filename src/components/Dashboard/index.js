@@ -15,7 +15,7 @@ export default function DashboardComponent({ navigation }) {
         <Stack space={5} mt={0} height={'80%'}>
           <View style={styles.parent}>
             <View style={styles.left}>
-              <IconButton onPress={() => { navigation.toggleDrawer() }} style={styles.iconleft} icon={<Icon size="xs" as={<MaterialIcons name='menu' />} color="#fff" />} />
+              <IconButton onPress={() => { navigation.toggleDrawer() }} style={styles.iconleft} icon={<Icon size="25" as={<MaterialIcons name='menu' />} color="#fff" />} />
             </View>
             <View>
               <Heading size="lg" color='#35424a' textAlign='center'> Tableau de board </Heading>
@@ -39,8 +39,8 @@ export default function DashboardComponent({ navigation }) {
                 shadow={3}
                 mr={5}
               >
-                <AntDesign name="setting" size={30} color="#fff" />
-                Paramètre
+                <AntDesign name="scan1" size={30} color="#fff" />
+                Scanner un ticket
               </Center>
               <Center
                 bg="#c3b27f"

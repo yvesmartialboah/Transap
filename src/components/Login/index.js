@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, TouchableOpacity, StatusBar, ScrollView, Dimensions } from 'react-native';
 import {
   NativeBaseProvider,
-  extendTheme, 
+  extendTheme,
   Box,
   Text,
   Heading,
@@ -28,18 +28,18 @@ const { height } = Dimensions.get('window');
 
 const theme = extendTheme({
   components: {
-      Input: {
-          baseStyle: {
-            borderColor:'#c3b27f',
-            _hover: {
-              borderColor: '#fff'
-            }
-          },
-          defaultProps: {},
-          variants: {},
-          sizes: {},
-      }
-  } 
+    Input: {
+      baseStyle: {
+        borderColor: '#c3b27f',
+        _hover: {
+          borderColor: '#fff'
+        }
+      },
+      defaultProps: {},
+      variants: {},
+      sizes: {},
+    }
+  }
 });
 const logo = require('../../../assets/logo_redi.png');
 
@@ -59,174 +59,191 @@ export default function LoginComponent({ navigation }) {
   return (
     <NativeBaseProvider theme={theme} style={{ height }}>
       <ScrollView style={{ height, backgroundColor: '#fff' }}>
-      <Box
-        flex={1}
-        p={2}
-        w="100%"
-        mx='auto'
-        bg="#fff"
-      >
+        <Box
+          flex={1}
+          p={2}
+          w="100%"
+          mx='auto'
+          bg="#fff"
+        >
 
-      <Box
-        // flex={1}
-        p={2}
-        w="100%"
-        mx='auto'
-        alignItem='center'
-        justifyContent="center"
-      >
-        <View style={styles.line}>
-          <Animatable.View animation='zoomIn' iterationDelay={1000} iterationCount='infinite' direction="alternate" duration={3000}>
-            <Image
-              size={150}
-              resizeMode={"contain"}
-              borderRadius={100}
-              source={logo}
-              alt="Alternate Text"
-            />
-          </Animatable.View>
-        </View>
-        <View style={styles.lineSecond}>
-          <Text style={styles.text}>I-TRANSPORT</Text>
-        </View>
-      </Box>
-
-      
-      <Box
-        p={2}
-        w="90%"
-        mx='auto'
-        // flex={1}
-        // bg="#fff"
-      >
-        <Heading size="lg" color='#c3b27f' textAlign='center'>
-          Connexion
-        </Heading>
-        <Text textAlign='center' style={styles.text2}>
-          Heureux de vous revoir parmis nous.
-        </Text>
-
-        <VStack space={2} mt={5}>
-          <FormControl>
-            <FormControl.Label _text={{ color: '#c3b27f', fontSize: 'sm', fontWeight: 600 }}>
-              Email
-            </FormControl.Label>
-            <Input 
-              InputRightElement={
-                <Icon
-                  as={<MaterialIcons name={'message'} />}
-                  size="md"
-                  m={2}
-                  _hover={{
-                    color: "#c3b27f",
-                  }}
-                  _light={{
-                    color: "#abb5be",
-                    // color: "#c3b27f",
-                  }}
-                  _dark={{
-                    color: "gray.300",
-                  }}
+          <Box
+            // flex={1}
+            p={2}
+            w="100%"
+            mx='auto'
+            alignItem='center'
+            justifyContent="center"
+          >
+            <View style={styles.line}>
+              <Animatable.View animation='zoomIn' iterationDelay={1000} iterationCount='infinite' direction="alternate" duration={3000}>
+                <Image
+                  size={150}
+                  resizeMode={"contain"}
+                  borderRadius={100}
+                  source={logo}
+                  alt="Alternate Text"
                 />
-              }
-            style={styles.input} placeholder='transport@contact.ci'/>
-          </FormControl>
-          <FormControl mb={5}>
-            <FormControl.Label _text={{ color: '#c3b27f', fontSize: 'sm', fontWeight: 600 }}>
-              Mot de passe
-            </FormControl.Label>
-            <Input style={styles.input} type="password" secureTextEntry={secureTextEntry} placeholder='Mot de passe' 
-               InputRightElement={
-                <Icon
-                onPress={()=>{
-                  setsecureTextEntry(!secureTextEntry)
-                }}
-                  as={<MaterialIcons name={secureTextEntry === true ? 'visibility' : 'info' } />}
-                  size="md"
-                  m={2}
-                  _hover={{
-                    color: "#c3b27f",
-                  }}
-                  _light={{
-                    // color: "#c3b27f",
-                    color: "#abb5be",
-                  }}
-                  _dark={{
-                    color: "gray.300",
-                  }}
+              </Animatable.View>
+            </View>
+            <View style={styles.lineSecond}>
+              <Text style={styles.text}>I-TRANSPORT</Text>
+            </View>
+          </Box>
+
+
+          <Box
+            p={2}
+            w="90%"
+            mx='auto'
+          // flex={1}
+          // bg="#fff"
+          >
+            <Heading size="lg" color='#c3b27f' textAlign='center'>
+              Connexion
+            </Heading>
+            <Text textAlign='center' style={styles.text2}>
+              Heureux de vous revoir parmis nous.
+            </Text>
+
+            <VStack space={2} mt={5}>
+              <FormControl>
+                <FormControl.Label _text={{ color: '#c3b27f', fontSize: 'sm', fontWeight: 600 }}>
+                  Email
+                </FormControl.Label>
+                <Input
+                  InputRightElement={
+                    <Icon
+                      as={<MaterialIcons name={'message'} />}
+                      size="md"
+                      m={2}
+                      _hover={{
+                        color: "#c3b27f",
+                      }}
+                      _light={{
+                        color: "#abb5be",
+                        // color: "#c3b27f",
+                      }}
+                      _dark={{
+                        color: "gray.300",
+                      }}
+                    />
+                  }
+                  style={styles.input} placeholder='transport@contact.ci' />
+              </FormControl>
+              <FormControl mb={5}>
+                <FormControl.Label _text={{ color: '#c3b27f', fontSize: 'sm', fontWeight: 600 }}>
+                  Mot de passe
+                </FormControl.Label>
+                <Input style={styles.input} type="password" secureTextEntry={secureTextEntry} placeholder='Mot de passe'
+                  InputRightElement={
+                    <Icon
+                      onPress={() => {
+                        setsecureTextEntry(!secureTextEntry)
+                      }}
+                      as={<MaterialIcons name={secureTextEntry === true ? 'visibility' : 'info'} />}
+                      size="md"
+                      m={2}
+                      _hover={{
+                        color: "#c3b27f",
+                      }}
+                      _light={{
+                        // color: "#c3b27f",
+                        color: "#abb5be",
+                      }}
+                      _dark={{
+                        color: "gray.300",
+                      }}
+                    />
+                  }
                 />
-              }
-            />
-            {/* <Link
+                {/* <Link
               _text={{ fontSize: 'xs', fontWeight: '700', color: 'cyan.500' }}
               alignSelf="flex-end"
               mt={1}
             >
               Forget Password?
             </Link> */}
-          </FormControl>
-          <VStack space={2}>
-            <Button onPress={()=>{navigation.navigate('Dashboard')}} 
-            style={styles.btn} 
-            _text={{ color: 'white', fontWeight: 'bold' }}
-            startIcon={<AntDesign name="login" size={24} color="#fff" />}
-            >
-                Continue
-            </Button>
-
-           
-          </VStack>
-           {/* Première Ligne */}
-           <Stack space={5} mt={5} justifyContent="space-between" alignItems="center">
-            {/*  */}
-            <Stack direction={'row'} space={5} mb={0} style={styles.stack}>
-              <Center
-                size={70}
-                bg="#c3b27f"
-                width={'47%'}
-                rounded={10}
-                _text={{
-                  color: "white",
-                  fontSize: 12,
-                  fontWeight: 'bold'
-                }}
-                shadow={3}
-                // mr={5}
-              >
-                <MaterialCommunityIcons name="api" size={30} color="#fff" />
-                Lien du serveur
-              </Center>
-              <Center
-                bg="#c3b27f"
-                size={70}
-                width={'47%'}
-                rounded={10}
-                _text={{
-                  color: "white",
-                  fontSize: 12,
-                  fontWeight: 'bold'
-                }}
-                shadow={3}
-                // ml={5}
-              >
-                <MaterialIcons name="flip-camera-ios" size={30} color="#fff" />
-                Changer le logo
-              </Center>
-            </Stack>
-            {/*  */}
+              </FormControl>
+              <VStack space={2}>
+                <Button onPress={() => { navigation.navigate('Dashboard') }}
+                  style={styles.btn}
+                  _text={{ color: 'white', fontWeight: 'bold' }}
+                  startIcon={<AntDesign name="login" size={24} color="#fff" />}
+                >
+                  Continue
+                </Button>
 
 
-          </Stack>
-      {/* Première Ligne */}
+              </VStack>
+              {/* Première Ligne */}
+              <Stack space={5} mt={5} justifyContent="space-between" alignItems="center">
+                {/*  */}
+                <Stack direction={'row'} space={5} mb={0} style={styles.stack}>
+                  <TouchableOpacity
+                    onPress={() => {
+                      navigation.navigate('ParamServeur')
+                    }}
+                    activeOpacity={0.8}
+                    style={styles.touch}
+                  >
+                    <Center
+                      size={70}
+                      bg="#c3b27f"
+                      width={'100%'}
+                      rounded={10}
+                      _text={{
+                        color: "white",
+                        fontSize: 12,
+                        fontWeight: 'bold'
+                      }}
+                      shadow={3}
+                    // mr={5}
+                    >
+                      <MaterialCommunityIcons name="api" size={30} color="#fff" />
+                      Lien du serveur
+                    </Center>
+                  </TouchableOpacity>
+
+                  <TouchableOpacity
+                    onPress={() => {
+                      navigation.navigate('ParamLogo')
+                    }}
+                    activeOpacity={0.8}
+                    style={styles.touch}
+                  >
+                  <Center
+                    bg="#c3b27f"
+                    size={70}
+                    width={'100%'}
+                    rounded={10}
+                    _text={{
+                      color: "white",
+                      fontSize: 12,
+                      fontWeight: 'bold'
+                    }}
+                    shadow={3}
+                  // ml={5}
+                  >
+                    <MaterialIcons name="flip-camera-ios" size={30} color="#fff" />
+                    Changer le logo
+                  </Center>
+                  </TouchableOpacity>
+                </Stack>
+                {/*  */}
 
 
-          <HStack justifyContent="center">
-            <View style={styles.bar}></View>
-          </HStack>
-        </VStack>
-      </Box>
-      
-      </Box>
+              </Stack>
+              {/* Première Ligne */}
+
+
+              <HStack justifyContent="center">
+                <View style={styles.bar}></View>
+              </HStack>
+            </VStack>
+          </Box>
+
+        </Box>
       </ScrollView>
     </NativeBaseProvider>
   );
@@ -281,5 +298,8 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     height: 4,
   },
-  
+  touch: {
+    width: '47%',
+    // backgroundColor: 'red',
+  },
 });
