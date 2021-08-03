@@ -1,5 +1,8 @@
 apply plugin: "com.android.application"
 
+apply plugin: "kotlin-android" // Add
+apply plugin: "kotlin-android-extensions" // Add
+
 import com.android.build.OutputFile
 
 /**
