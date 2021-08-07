@@ -17,6 +17,7 @@ import TicketsScannerComponent from './components/TicketsScanner/TicketsScanner.
 import FolderComponent from './components/Folder/Folder.component';
 import AddFeatComponent from './components/AddFeat/AddFeat.component';
 import SinistreComponent from './components/Sinistre/Sinistre.component';
+import PDFComponent from './components/_Shared/Pdf/Pdf';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -35,6 +36,7 @@ const NavigationApp = ({}) => (
             <Drawer.Screen options={{ swipeEnabled: false }} name="Folder" component={FolderComponent} />
             <Drawer.Screen options={{ swipeEnabled: false }} name="AddFeat" component={AddFeatComponent} />
             <Drawer.Screen options={{ swipeEnabled: false }} name="Sinistre" component={SinistreComponent} />
+            <Drawer.Screen options={{ swipeEnabled: false }} name="PDF" component={PDFComponent} />
         </Drawer.Navigator>
     </NavigationContainer>
 );
