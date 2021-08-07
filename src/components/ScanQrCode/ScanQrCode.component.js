@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity, Alert, ScrollView, Dimensions, Image } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import { CameraScreen } from 'react-native-camera-kit';
-import { NativeBaseProvider, Box, Stack, Button, Modal } from 'native-base';
+import { NativeBaseProvider, Box, Stack, Button, Modal, IconButton, Icon, Heading } from 'native-base';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import AwesomeLoading from 'react-native-awesome-loading';
 const success = require('../../../assets/check-lg.png');
 const success_or = require('../../../assets/check-lg-or.png');
 const error = require('../../../assets/close-l.png');
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+
 
 const { height } = Dimensions.get('window');
 
@@ -49,9 +51,17 @@ export default function ScanQrCodeComponent({ navigation }) {
         <ScrollView style={{ height }}>
             <AwesomeLoading indicatorId={4} size={50} isActive={loader} text="loading" />
             <NativeBaseProvider>
-                <View style={styles.section}>
-                    <Text style={styles.Titlesection}>Scanner le QrCode ici</Text>
+                <View style={styles.parent}>
+                    <View style={styles.left}>
+                        <IconButton onPress={() => { navigation.goBack() }} style={styles.iconleft} icon={<Icon size="25" as={<AntDesign name="back" size={24} color="white" />} color="#fff" />} />
+                    </View>
+                    <View>
+                        <Heading size="md" color='#35424a' top={2} textAlign='center'> Scanner le QrCode ici </Heading>
+                    </View>
                 </View>
+                {/* <View style={styles.section}>
+                    <Text style={styles.Titlesection}>Scanner le QrCode ici</Text>
+                </View> */}
 
                 <View
                     style={styles.camera2}
@@ -173,5 +183,19 @@ const styles = StyleSheet.create({
     imgsuc: {
         resizeMode: 'contain',
         height: 100
-    }
+    },
+    parent: {
+        flexDirection: 'row',
+        margin: 20,
+    },
+    left: {
+        alignItems: 'flex-start',
+        width: '20%',
+        // backgroundColor: 'red'
+    },
+    iconleft: {
+        left: 15,
+        backgroundColor: '#c3b27f',
+        fontSize: 5,
+    },
 });

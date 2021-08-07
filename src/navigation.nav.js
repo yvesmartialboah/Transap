@@ -25,7 +25,7 @@ const Drawer = createDrawerNavigator();
 
 const NavigationApp = ({}) => (
     <NavigationContainer>
-        <Drawer.Navigator initialRouteName="ScanQrCode"
+        <Drawer.Navigator initialRouteName="Login"
             drawerContent={props => <SidebarComponent {...props} />}
         >
             <Drawer.Screen options={{ swipeEnabled: false }} name="Login" component={LoginComponent} />
