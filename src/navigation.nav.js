@@ -6,6 +6,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 
 // Sidebar
 import SidebarComponent from './components/_Shared/Sidebar/index';
+import PDFComponent from './components/_Shared/Pdf/Pdf';
 
 // Pages
 import LoginComponent from './components/Login/index';
@@ -17,14 +18,14 @@ import TicketsScannerComponent from './components/TicketsScanner/TicketsScanner.
 import FolderComponent from './components/Folder/Folder.component';
 import AddFeatComponent from './components/AddFeat/AddFeat.component';
 import SinistreComponent from './components/Sinistre/Sinistre.component';
-import PDFComponent from './components/_Shared/Pdf/Pdf';
+import ScanQrCodeComponent from './components/ScanQrCode/ScanQrCode.component';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
 const NavigationApp = ({}) => (
     <NavigationContainer>
-        <Drawer.Navigator initialRouteName="Login"
+        <Drawer.Navigator initialRouteName="ScanQrCode"
             drawerContent={props => <SidebarComponent {...props} />}
         >
             <Drawer.Screen options={{ swipeEnabled: false }} name="Login" component={LoginComponent} />
@@ -36,6 +37,9 @@ const NavigationApp = ({}) => (
             <Drawer.Screen options={{ swipeEnabled: false }} name="Folder" component={FolderComponent} />
             <Drawer.Screen options={{ swipeEnabled: false }} name="AddFeat" component={AddFeatComponent} />
             <Drawer.Screen options={{ swipeEnabled: false }} name="Sinistre" component={SinistreComponent} />
+            <Drawer.Screen options={{ swipeEnabled: false }} name="ScanQrCode" component={ScanQrCodeComponent} />
+
+            {/*  */}
             <Drawer.Screen options={{ swipeEnabled: false }} name="PDF" component={PDFComponent} />
         </Drawer.Navigator>
     </NavigationContainer>

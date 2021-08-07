@@ -28,7 +28,7 @@ export default function DashboardComponent({ navigation }) {
               <Stack direction={'row'} space={5} mb={0} style={styles.stack}>
               <TouchableOpacity
                   onPress={() => {
-                    // navigation.navigate('TicketsScanner')
+                    navigation.navigate('ScanQrCode')
                   }}
                   activeOpacity={0.8}
                   style={styles.touch}
@@ -53,7 +53,7 @@ export default function DashboardComponent({ navigation }) {
 
                 <TouchableOpacity
                   onPress={() => {
-                    // navigation.navigate('TicketsScanner')
+                    // navigation.navigate('')
                   }}
                   activeOpacity={0.8}
                   style={styles.touch}
@@ -155,7 +155,7 @@ export default function DashboardComponent({ navigation }) {
             <Button
               // flex={1}
               bgColor={'#c3b27f'}
-              onPress={() => { navigation.navigate('Folder') }}
+              onPress={() => { navigation.navigate('ScanQrCode') }}
               // onPress={() => setDirection(direction === "row" ? "column" : "row")}
               startIcon={<AntDesign name="scan1" size={24} color="#fff" />}
             >
