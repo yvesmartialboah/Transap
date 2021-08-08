@@ -53,7 +53,7 @@ export default function DashboardComponent({ navigation }) {
 
                 <TouchableOpacity
                   onPress={() => {
-                    // navigation.navigate('')
+                    navigation.navigate('ListVoyage')
                   }}
                   activeOpacity={0.8}
                   style={styles.touch}

@@ -83,6 +83,9 @@ export default function SidebarComponent({ props, navigation }) {
                   <Pressable
                     px={5}
                     py={2}
+                    onPress={() => {
+                      navigation.navigate('ScanQrCode')
+                    }}
                   >
                     <HStack space={7} alignItems="center">
                       <Icon
@@ -97,6 +100,9 @@ export default function SidebarComponent({ props, navigation }) {
                   <Pressable
                     px={5}
                     py={2}
+                    onPress={() => {
+                      navigation.navigate('ListVoyage')
+                    }}
                   >
                     <HStack space={7} alignItems="center">
                       <Icon

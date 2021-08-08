@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react"
+import React, { useState, useEffect } from "react"
 import { StyleSheet, Text, View, ImageBackground, Dimensions, FlatList, TouchableOpacity, ScrollView } from 'react-native'
 import { Box, VStack, Stack, Center, Heading, IconButton, Icon, Button, NativeBaseProvider, Input } from "native-base"
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -6,53 +6,52 @@ import Foundation from 'react-native-vector-icons/Foundation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
-export default function FolderComponent({ navigation }) {
+export default function ListVoyageComponent({ navigation }) {
   const [searchType, setSearchType] = useState('');
   const image = require('../../../assets/bgn.png');
   const { height } = Dimensions.get('window');
   const DATA = [
     {
-      id: 'bd7acbea-c1b1-464c2-aed5-3ad53abb28bazqs',
-      title: 'DM-0065/20',
-      name: 'BOAH MARTIAL',
-      exp: 'Expertise',
-      det: 'VOLE NON RETROUVE / Commune: (ND)',
-      date: '2021-01-01',
+      V_ID: "1",
+      V_DATEDEPART: "2021-05-20",
+      V_DATEARRIVEE: "0000-00-00",
+      V_HEUREDEP: "07:30:00",
+      V_HEUREARV: "05:30:00",
+      V_VILLEDEPART: "ABIDJAN",
+      V_VILLEARRIVE: "KORHOGO",
+      V_VILLEESCALE1: "YAMOUSSOUKRO",
+      V_VILLEESCALE2: "BOUAKE",
+      V_VILLEESCALE3: "KATIOLA",
+      V_VILLEESCALE4: null,
+      V_VILLEESCALE5: null,
+      V_DISTANCE: "600",
+      C_ID: "1",
+      P_ID: "6",
+      C_IM: "IM0000001CI",
+      P_NOMP: "JEAN KOUASSI"
     },
     {
-      id: '3ac68afc-c605-48d3-a4f38-fbd91aa97f63za',
-      title: 'DM-0067/20',
-      name: 'Marco Polo',
-      exp: 'Expertise',
-      det: 'VOLE NON RETROUVE / Commune: (ND)',
-      date: '2021-01-05',
+      V_ID: "1",
+      V_DATEDEPART: "2021-05-20",
+      V_DATEARRIVEE: "0000-00-00",
+      V_HEUREDEP: "07:30:00",
+      V_HEUREARV: "05:30:00",
+      V_VILLEDEPART: "ABIDJAN",
+      V_VILLEARRIVE: "KORHOGO",
+      V_VILLEESCALE1: "YAMOUSSOUKRO",
+      V_VILLEESCALE2: "BOUAKE",
+      V_VILLEESCALE3: "KATIOLA",
+      V_VILLEESCALE4: null,
+      V_VILLEESCALE5: null,
+      V_DISTANCE: "600",
+      C_ID: "1",
+      P_ID: "6",
+      C_IM: "2IM0000001CI",
+      P_NOMP: "JEAN KOUASSI"
     },
-    {
-      id: '58694a0f-3da1-4712f-bd96-145571e29d72z',
-      title: 'DM-0065/20',
-      name: 'INCONNU',
-      exp: 'Expertise',
-      det: 'VOLE NON RETROUVE / Commune: (ND)',
-      date: '2021-01-07',
-    },
-    {
-      id: '58694a0f-3da1-4471f-bd96-145571e29d72c',
-      title: 'DM-0065/20',
-      name: 'INCONNU',
-      exp: 'Expertise',
-      det: 'VOLE NON RETROUVE / Commune: (ND)',
-      date: '2021-01-07',
-    },
-    {
-      id: '58694a0f-3da1-4711f-bd96-145571e29d72z',
-      title: 'DM-0065/20',
-      name: 'INCONNU',
-      exp: 'Expertise',
-      det: 'VOLE NON RETROUVE / Commune: (ND)',
-      date: '2021-01-07',
-    }
+
   ];
-  
+
   useEffect(() => {
     // 
   }, []);
@@ -65,13 +64,13 @@ export default function FolderComponent({ navigation }) {
     let text = val.toLowerCase();
     let contentData = listDATA;
     let filteredName = contentData.filter((item) => {
-      return item.name.toLowerCase().match(text)
+      return item.P_NOMP.toLowerCase().match(text) || item.C_IM.toLowerCase().match(text)
     })
 
     if (!text || text === '') {
       setcheckData(true)
       setlistDATA(DATA)
-    } 
+    }
     else if (filteredName.length == 0) {
       // set no data flag to true so as to render flatlist conditionally
       // console.log(filteredName, 'filteredName')
@@ -83,46 +82,52 @@ export default function FolderComponent({ navigation }) {
       setcheckData(true)
       setlistDATA(filteredName)
     }
-    
+
   }
 
   const _renderItem = ({ item }) => {
     return (
       <ScrollView>
-      <Stack space={5} mt={5} justifyContent="center" alignItems="center">
-        <Stack direction={'column'} space={5} mb={0} style={styles.stack}>
-          <TouchableOpacity
-            onPress={()=>{
-              navigation.navigate('AddFeat')
-            }}
-          style={styles.round}>
-            <Text style={styles.txt_white}>
-              {item.title}
-            </Text>
-            <Text style={styles.txt_white_sub}>
-              {item.name}
-            </Text>
-            <Text style={styles.txt_white_sub2}>
-              Type d'expertise: {item.exp}
-            </Text>
-            <Text style={styles.txt_white_sub2}>
-              {item.det}
-            </Text>
+        <Stack space={5} mt={5} justifyContent="center" alignItems="center">
+          <Stack direction={'column'} space={5} mb={0} style={styles.stack}>
+            <TouchableOpacity
+              onPress={() => {
+                // navigation.navigate('')
+              }}
+              style={styles.round}>
+              <Text style={styles.txt_white}>
+                {item.C_IM}
+              </Text>
+              <Text style={styles.txt_white_sub}>
+                {item.P_NOMP}
+              </Text>
+              <Text style={styles.txt_white_sub2}>
+                De {item.V_VILLEDEPART} à {item.V_VILLEARRIVE} - {item.V_DISTANCE} K.m
+              </Text>
+              <Text style={styles.txt_white_sub2}>
+                Heure de départ : {item.V_HEUREDEP} - Heure d'arrivée : {item.V_HEUREARV}
+              </Text>
+              <Text style={styles.txt_white_sub2}>
+                Escale : {item.V_VILLEESCALE1} - {item.V_VILLEESCALE2} - {item.V_VILLEESCALE3}
+              </Text>
+              <Text style={styles.txt_white_sub2}>
+                Escale : {item.V_VILLEESCALE4} - {item.V_VILLEESCALE5}
+              </Text>
 
-            <View style={styles.parent_white_sub}>
-              <View style={styles.View_white_sub3}>
-                <AntDesign name="rightcircleo" size={20} color={'#fff'} style={styles.icon_sub3} />
+              <View style={styles.parent_white_sub}>
+                <View style={styles.View_white_sub3}>
+                  <AntDesign name="rightcircleo" size={20} color={'#fff'} style={styles.icon_sub3} />
+                </View>
+                <View style={styles.View_white_sub4}>
+                  <Text style={styles.txt_white_sub3}>
+                   Date de départ : {item.V_DATEDEPART}
+                  </Text>
+                </View>
               </View>
-              <View style={styles.View_white_sub4}>
-                <Text style={styles.txt_white_sub3}>
-                  {item.date}
-                </Text>
-              </View>
-            </View>
 
-          </TouchableOpacity>
+            </TouchableOpacity>
+          </Stack>
         </Stack>
-      </Stack>
       </ScrollView>
     );
   }
@@ -139,7 +144,7 @@ export default function FolderComponent({ navigation }) {
               <IconButton onPress={() => { navigation.goBack() }} style={styles.iconleft} icon={<Icon size="xs" as={<AntDesign name="back" size={24} color="white" />} color="#fff" />} />
             </View>
             <View style={{ alignItems: 'center', flexDirection: 'row', justifyContent: 'center', width: '70%' }}>
-              <Heading size="md" color='#35424a' textAlign='center'> Dossiers attribués (5) </Heading>
+              <Heading size="md" color='#35424a' textAlign='center'> Liste des voyages (5) </Heading>
             </View>
           </View>
 
@@ -149,7 +154,7 @@ export default function FolderComponent({ navigation }) {
               <Input
                 onChangeText={(val) => {
                   onTypeChange(val)
-                 // setSearchType(val) //Mise à jour du text
+                  // setSearchType(val) //Mise à jour du text
                 }}
                 // value={setSearchType}
                 placeholder="Recherche"
@@ -170,13 +175,13 @@ export default function FolderComponent({ navigation }) {
           </View>
           {/* search input */}
           {checkData == false ? <Text>NoData</Text> :
-          <FlatList
-            data={listDATA}
-            renderItem={_renderItem}
-            keyExtractor={item => item.id.toString()}
-          // ItemSeparatorComponent = {() => <View style={styles.separator} />}
-          />}  
-          
+            <FlatList
+              data={listDATA}
+              renderItem={_renderItem}
+              keyExtractor={item => item.V_ID.toString()}
+            // ItemSeparatorComponent = {() => <View style={styles.separator} />}
+            />}
+
 
           <Box></Box>
 
@@ -218,7 +223,7 @@ const styles = StyleSheet.create({
   },
   round: {
     width: '100%',
-    height: 100,
+    height: 180,
     backgroundColor: '#c3b27f',
     // alignItems:'center', 
     borderColor: '#c3b27f',
@@ -242,14 +247,14 @@ const styles = StyleSheet.create({
   txt_white_sub2: {
     marginLeft: 10,
     marginTop: 5,
-    fontSize: 10,
+    fontSize: 11,
     color: 'white',
     fontWeight: 'bold',
   },
   txt_white_sub3: {
     textAlign: 'right',
     marginRight: 10,
-    fontSize: 10,
+    fontSize: 11,
     color: 'white',
     fontWeight: 'bold',
   },
@@ -260,16 +265,16 @@ const styles = StyleSheet.create({
   parent_white_sub: {
     height: 100,
     // alignItems: 'space-around',
-    bottom: 40,
+    bottom: 12,
 
     // backgroundColor: 'red',
   },
   View_white_sub3: {
     height: 35,
-    // bottom: 15,
+    bottom: 40,
   },
   View_white_sub4: {
     height: 30,
-    bottom: 6,
+    bottom: 5,
   },
 });
