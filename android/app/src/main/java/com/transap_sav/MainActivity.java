@@ -1,4 +1,4 @@
-package com.expertauto;
+package com.transap_sav;
 
 import android.os.Bundle; // here
 import com.facebook.react.ReactActivity;
