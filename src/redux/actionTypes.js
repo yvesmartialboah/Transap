@@ -1,1 +1,1 @@
-export const ADD_RECIPES = "ADD_RECIPES";
+export const LIST_VOYAGE = "LIST_VOYAGE";

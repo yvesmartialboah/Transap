@@ -5,58 +5,72 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Foundation from 'react-native-vector-icons/Foundation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import { useSelector, useDispatch } from "react-redux";
+import { getvoyage } from '../../redux/selectors';
+import {fetchVoyage} from '../../api/ListVoyage/index';
+
 
 export default function ListVoyageComponent({ navigation }) {
+  const voyage = useSelector(getvoyage);
+  const dispatch = useDispatch();
+
   const [searchType, setSearchType] = useState('');
   const image = require('../../../assets/bgn.png');
   const { height } = Dimensions.get('window');
   const DATA = [
-    {
-      V_ID: "1",
-      V_DATEDEPART: "2021-05-20",
-      V_DATEARRIVEE: "0000-00-00",
-      V_HEUREDEP: "07:30:00",
-      V_HEUREARV: "05:30:00",
-      V_VILLEDEPART: "ABIDJAN",
-      V_VILLEARRIVE: "KORHOGO",
-      V_VILLEESCALE1: "YAMOUSSOUKRO",
-      V_VILLEESCALE2: "BOUAKE",
-      V_VILLEESCALE3: "KATIOLA",
-      V_VILLEESCALE4: null,
-      V_VILLEESCALE5: null,
-      V_DISTANCE: "600",
-      C_ID: "1",
-      P_ID: "6",
-      C_IM: "IM0000001CI",
-      P_NOMP: "JEAN KOUASSI"
-    },
-    {
-      V_ID: "1",
-      V_DATEDEPART: "2021-05-20",
-      V_DATEARRIVEE: "0000-00-00",
-      V_HEUREDEP: "07:30:00",
-      V_HEUREARV: "05:30:00",
-      V_VILLEDEPART: "ABIDJAN",
-      V_VILLEARRIVE: "KORHOGO",
-      V_VILLEESCALE1: "YAMOUSSOUKRO",
-      V_VILLEESCALE2: "BOUAKE",
-      V_VILLEESCALE3: "KATIOLA",
-      V_VILLEESCALE4: null,
-      V_VILLEESCALE5: null,
-      V_DISTANCE: "600",
-      C_ID: "1",
-      P_ID: "6",
-      C_IM: "2IM0000001CI",
-      P_NOMP: "JEAN KOUASSI"
-    },
+    // {
+    //   V_ID: "1",
+    //   V_DATEDEPART: "2021-05-20",
+    //   V_DATEARRIVEE: "0000-00-00",
+    //   V_HEUREDEP: "07:30:00",
+    //   V_HEUREARV: "05:30:00",
+    //   V_VILLEDEPART: "ABIDJAN",
+    //   V_VILLEARRIVE: "KORHOGO",
+    //   V_VILLEESCALE1: "YAMOUSSOUKRO",
+    //   V_VILLEESCALE2: "BOUAKE",
+    //   V_VILLEESCALE3: "KATIOLA",
+    //   V_VILLEESCALE4: null,
+    //   V_VILLEESCALE5: null,
+    //   V_DISTANCE: "600",
+    //   C_ID: "1",
+    //   P_ID: "6",
+    //   C_IM: "IM0000001CI",
+    //   P_NOMP: "JEAN KOUASSI"
+    // },
+    // {
+    //   V_ID: "2",
+    //   V_DATEDEPART: "2021-05-20",
+    //   V_DATEARRIVEE: "0000-00-00",
+    //   V_HEUREDEP: "07:30:00",
+    //   V_HEUREARV: "05:30:00",
+    //   V_VILLEDEPART: "ABIDJAN",
+    //   V_VILLEARRIVE: "KORHOGO",
+    //   V_VILLEESCALE1: "YAMOUSSOUKRO",
+    //   V_VILLEESCALE2: "BOUAKE",
+    //   V_VILLEESCALE3: "KATIOLA",
+    //   V_VILLEESCALE4: null,
+    //   V_VILLEESCALE5: null,
+    //   V_DISTANCE: "600",
+    //   C_ID: "1",
+    //   P_ID: "6",
+    //   C_IM: "2IM0000001CI",
+    //   P_NOMP: "JEAN KOUASSI"
+    // },
 
   ];
 
+  // Data User
+  const ACTION = '_OBTENIRVOYAGE_';
+  const USR_LOGIN = 'MOBILE';
+  const USR_PASS = 1234;
+  const USR_ID = 37;
+  // Data User
+
   useEffect(() => {
-    // 
+    fetchVoyage(dispatch,ACTION,USR_LOGIN,USR_PASS,USR_ID)
   }, []);
 
-  const [listDATA, setlistDATA] = useState(DATA);
+  const [listDATA, setlistDATA] = useState(voyage);
   const [checkData, setcheckData] = useState(true);
 
   const onTypeChange = (val) => {
@@ -69,7 +83,7 @@ export default function ListVoyageComponent({ navigation }) {
 
     if (!text || text === '') {
       setcheckData(true)
-      setlistDATA(DATA)
+      setlistDATA(voyage)
     }
     else if (filteredName.length == 0) {
       // set no data flag to true so as to render flatlist conditionally
@@ -183,6 +197,8 @@ export default function ListVoyageComponent({ navigation }) {
             />}
 
 
+          <Box></Box>
+          <Box></Box>
           <Box></Box>
 
         </Stack>

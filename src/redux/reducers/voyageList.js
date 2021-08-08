@@ -1,10 +1,10 @@
-import {ADD_RECIPES} from "../actionTypes";
+import {LIST_VOYAGE} from "../actionTypes";
 
 const defaultState = [];
 
-export const recipesList = (state = defaultState, action) => {
+export const voyageList = (state = defaultState, action) => {
   switch (action.type) {
-    case ADD_RECIPES:
+    case LIST_VOYAGE:
       // payload = [{}]
       return action.payload
     default:

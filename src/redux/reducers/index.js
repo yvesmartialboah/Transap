@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 
-import { recipesList } from "./recipesList";
+import { voyageList } from "./voyageList";
 
 export default combineReducers({
-  recipesList,
+  voyageList,
 });
