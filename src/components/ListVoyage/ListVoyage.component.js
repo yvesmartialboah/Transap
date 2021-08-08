@@ -8,6 +8,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import { useSelector, useDispatch } from "react-redux";
 import { getvoyage } from '../../redux/selectors';
 import {fetchVoyage} from '../../api/ListVoyage/index';
+import AwesomeLoading from 'react-native-awesome-loading';
 
 
 export default function ListVoyageComponent({ navigation }) {
@@ -15,6 +16,7 @@ export default function ListVoyageComponent({ navigation }) {
   const dispatch = useDispatch();
 
   const [searchType, setSearchType] = useState('');
+  const [loader, setLoader] = useState(true);
   const image = require('../../../assets/bgn.png');
   const { height } = Dimensions.get('window');
   const DATA = [
@@ -68,6 +70,9 @@ export default function ListVoyageComponent({ navigation }) {
 
   useEffect(() => {
     fetchVoyage(dispatch,ACTION,USR_LOGIN,USR_PASS,USR_ID)
+    setTimeout( ()=> {
+      setLoader(false)
+    },2000)
   }, []);
 
   const [listDATA, setlistDATA] = useState(voyage);
@@ -81,7 +86,7 @@ export default function ListVoyageComponent({ navigation }) {
       return item.P_NOMP.toLowerCase().match(text) || item.C_IM.toLowerCase().match(text)
     })
 
-    if (!text || text === '') {
+    if (!text || text === ''|| text.length == 1) {
       setcheckData(true)
       setlistDATA(voyage)
     }
@@ -150,6 +155,7 @@ export default function ListVoyageComponent({ navigation }) {
 
   return (
     <NativeBaseProvider>
+        <AwesomeLoading indicatorId={4} size={50} isActive={loader} text="loading" />
       <ImageBackground source={image} style={{ height }}>
         <Stack space={5} mt={0} height={'100%'}>
           {/* title */}
@@ -168,6 +174,7 @@ export default function ListVoyageComponent({ navigation }) {
               <Input
                 onChangeText={(val) => {
                   onTypeChange(val)
+
                   // setSearchType(val) //Mise à jour du text
                 }}
                 // value={setSearchType}
@@ -188,9 +195,9 @@ export default function ListVoyageComponent({ navigation }) {
             </VStack>
           </View>
           {/* search input */}
-          {checkData == false ? <Text>NoData</Text> :
+          {voyage.length == 0 ? <Text>NoData</Text> :
             <FlatList
-              data={listDATA}
+              data={listDATA.length == 0 ? voyage : listDATA}
               renderItem={_renderItem}
               keyExtractor={item => item.V_ID.toString()}
             // ItemSeparatorComponent = {() => <View style={styles.separator} />}

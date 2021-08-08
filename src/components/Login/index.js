@@ -76,7 +76,7 @@ export default function LoginComponent({ navigation }) {
             justifyContent="center"
           >
             <View style={styles.line}>
-              <Animatable.View animation='zoomIn' iterationDelay={1000} iterationCount='infinite' direction="alternate" duration={3000}>
+              {/* <Animatable.View animation='zoomIn' iterationDelay={1000} iterationCount='infinite' direction="alternate" duration={3000}> */}
                 <Image
                   size={150}
                   resizeMode={"contain"}
@@ -84,10 +84,10 @@ export default function LoginComponent({ navigation }) {
                   source={logo}
                   alt="Alternate Text"
                 />
-              </Animatable.View>
+              {/* </Animatable.View> */}
             </View>
             <View style={styles.lineSecond}>
-              <Text style={styles.text}>I-TRANSPORT</Text>
+              <Text style={styles.text}>Transap</Text>
             </View>
           </Box>
 
@@ -267,7 +267,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    bottom: 0,
+    top: 10,
   },
   text: {
     color: '#abb5be',
