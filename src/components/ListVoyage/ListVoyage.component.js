@@ -113,7 +113,7 @@ export default function ListVoyageComponent({ navigation }) {
                 {item.C_IM}
               </Text>
               <Text style={styles.txt_white_sub}>
-                {item.P_NOMP}
+                Chauffeur : {item.P_NOMP}
               </Text>
               <Text style={styles.txt_white_sub2}>
                 De {item.V_VILLEDEPART} à {item.V_VILLEARRIVE} - {item.V_DISTANCE} K.m
@@ -158,7 +158,7 @@ export default function ListVoyageComponent({ navigation }) {
               <IconButton onPress={() => { navigation.goBack() }} style={styles.iconleft} icon={<Icon size="xs" as={<AntDesign name="back" size={24} color="white" />} color="#fff" />} />
             </View>
             <View style={{ alignItems: 'center', flexDirection: 'row', justifyContent: 'center', width: '70%' }}>
-              <Heading size="md" color='#35424a' textAlign='center'> Liste des voyages (5) </Heading>
+              <Heading size="md" color='#35424a' textAlign='center'> Liste des voyages ({voyage.length}) </Heading>
             </View>
           </View>
 
