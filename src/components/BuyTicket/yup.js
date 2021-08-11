@@ -4,6 +4,7 @@ export const BuyTicketYup = yup.object().shape({
     num_ticket: yup
         .number()
         .required('Le nombre de ticket est requis !!!')
+        .typeError('Veuillez spécifier un numéro svp.'),
     // nom_proprietaire: yup
     //     .string()
     //     .min(4, ({ min }) => `Veuillez saisir au moins ${min} caractères !!!`)

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react"
-import { StyleSheet, Text, View, ImageBackground, Dimensions, FlatList, TouchableOpacity, ScrollView } from 'react-native'
+import { StyleSheet, Text, View, ImageBackground, Dimensions, Image, TouchableOpacity, ScrollView } from 'react-native'
 import {
     Box, VStack, Stack, Center, Heading, IconButton, Icon, Button, NativeBaseProvider,
     FormControl,
     Input,
     Select,
     CheckIcon,
+    Modal,
 } from "native-base"
 import { Formik } from 'formik';
 import { BuyTicketYup } from './yup';
@@ -18,38 +19,70 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import moment from 'moment';
 import axios from 'axios';
 import 'moment/locale/en-au';
+import AwesomeLoading from 'react-native-awesome-loading';
 
-
-const AchatTicket = () => {
-    axios.post('https://urban-mobility-management.com/Layers/Business/Controller/Bs_ApiMobileSiteController.php?ACTION=_PAIEMENT_&GH_ID=14&USR_ID=25&OPR_MONTANT=8000&TCK_PRIX=8000&TCK_NUM=20210728680&USR_LOGIN=MOBILE&USR_PASS=1234&USR_ID=37', {
-        params: {
-          ID: 12345
-        }
-      })
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      })
-      .then(function () {
-        // always executed
-      });
-}
+const success = require('../../../assets/check-lg.png');
+const success_or = require('../../../assets/check-lg-or.png');
+const error = require('../../../assets/close-l.png');
 
 const BuyTicketComponent = ({ navigation, route }) => {
-    const [assurance, setAssurance] = useState(null); // For select
+    const [showModal, setShowModal] = useState(false);
+    const [loader, setLoader] = useState(false);
+    const [num_ticket, setNum_ticket] = useState(0);
     const image = require('../../../assets/bgn.png');
     const logo_redi = require('../../../assets/logo_redi.png');
     const { height } = Dimensions.get('window');
 
-    useEffect(()=>{
+    useEffect(() => {
         // console.log(route.params.voyage.voyage_id, 'route.params.voyage.voyage_id')
     })
+    // Data User
+    const ACTION = '_PAIEMENT_';
+    const GH_ID = 14;
+    // const OPR_MONTANT = 8000;
+    const TCK_NUM = 20210728680;
+    const USR_LOGIN = 'MOBILE';
+    const USR_PASS = '1234';
+    const USR_ID = 37;
+    // Data User
+
+
+
+    const AchatTicket = (OPR_MONTANT) => {
+        setLoader(true)
+        axios.get('https://urban-mobility-management.com/Layers/Business/Controller/Bs_ApiMobileSiteController.php', {
+            params: {
+                ACTION,
+                GH_ID,
+                OPR_MONTANT: OPR_MONTANT,
+                TCK_NUM,
+                USR_LOGIN,
+                USR_PASS,
+                USR_ID
+            }
+        })
+            .then(function (response) {
+                console.log(response);
+                setLoader(false)
+                if (response.status == 200) {
+                    setShowModal(true)
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+                setLoader(false)
+            })
+            .then(function () {
+                // always executed
+                setLoader(false)
+            });
+    }
+
 
     return (
-        <ImageBackground source={image}  style={{ height: '100%'}}>
-                <NativeBaseProvider>
+        <ImageBackground source={image} style={{ height: '100%' }}>
+            <AwesomeLoading indicatorId={4} size={50} isActive={loader} text="Chargement" />
+            <NativeBaseProvider>
                 <ScrollView style={{ height }}>
                     <Stack space={5} mt={0} height={'100%'}>
                         {/* title */}
@@ -91,7 +124,12 @@ const BuyTicketComponent = ({ navigation, route }) => {
                             initialValues={{
                                 num_ticket: null,
                             }}
-                            onSubmit={values => console.log(values)}
+                            onSubmit={(values) => {
+                                AchatTicket(values.num_ticket)
+                                console.log(values)
+                                values.num_ticket = null;
+                                console.log(values)
+                            }}
                         >
                             {({
                                 handleChange,
@@ -135,7 +173,7 @@ const BuyTicketComponent = ({ navigation, route }) => {
                                         </Stack>
                                     </FormControl>
 
-                                        {/* Prix du ticket */}
+                                    {/* Prix du ticket */}
                                     <FormControl>
                                         <Stack mx={4}>
                                             <FormControl.Label _invalid={{
@@ -176,10 +214,40 @@ const BuyTicketComponent = ({ navigation, route }) => {
                         <Box></Box>
 
                     </Stack>
+                    <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
+                        <Modal.Content maxWidth="400px">
+                            <Modal.CloseButton />
+                            <Modal.Header>Statut du ticket</Modal.Header>
+                            <Modal.Body>
+                                <View style={{ flexDirection: 'row' }}>
+                                    <View>
+                                        <Image source={success_or} style={styles.imgsuc} />
+                                        <Text style={{ fontSize: 15, fontWeight: 'bold', color: 'orange', top: 10 }}>
+                                                Le paiement à bien été effectué
+                                            </Text>
+                                    </View>
+                                  
+                                </View>
 
-        </ScrollView>
-                </NativeBaseProvider>
-            </ImageBackground>
+
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button.Group variant="ghost" space={2}>
+                                    {/* <Button>LEARN MORE</Button> */}
+                                    <Button
+                                        onPress={() => {
+                                            setShowModal(false)
+                                        }}
+                                    >
+                                        OK
+                                    </Button>
+                                </Button.Group>
+                            </Modal.Footer>
+                        </Modal.Content>
+                    </Modal>
+                </ScrollView>
+            </NativeBaseProvider>
+        </ImageBackground>
     )
 };
 
@@ -303,7 +371,11 @@ const styles = StyleSheet.create({
         fontSize: 14,
         fontWeight: 'bold',
         color: '#c3b27f',
-    }
+    },
+    imgsuc: {
+        resizeMode: 'contain',
+        height: 100
+    },
 });
 
 export default BuyTicketComponent;

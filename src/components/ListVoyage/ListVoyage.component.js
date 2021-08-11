@@ -164,7 +164,7 @@ export default function ListVoyageComponent({ navigation }) {
 
   return (
     <NativeBaseProvider>
-        <AwesomeLoading indicatorId={4} size={50} isActive={loader} text="loading" />
+        <AwesomeLoading indicatorId={4} size={50} isActive={loader} text="Chargement" />
       <ImageBackground source={image} style={{ height }}>
         <Stack space={5} mt={0} height={'100%'}>
           {/* title */}
