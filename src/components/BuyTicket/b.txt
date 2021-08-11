@@ -23,7 +23,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 
 
 
-const SinistreComponent = ({ navigation }) => {
+const SinistreComponent = ({ navigation, route }) => {
     const [assurance, setAssurance] = useState(null); // For select
     const image = require('../../../assets/bgn.png');
     const logo_redi = require('../../../assets/logo_redi.png');
@@ -44,6 +44,10 @@ const SinistreComponent = ({ navigation }) => {
         setShow(false);
 
     };
+
+    useEffect(()=>{
+        // console.log(route.params.voyage.voyage_id, 'route.params.voyage.voyage_id')
+    })
 
     const showMode = (currentMode) => {
         setShow(true);
@@ -70,7 +74,7 @@ const SinistreComponent = ({ navigation }) => {
                                     <IconButton onPress={() => { navigation.goBack() }} style={styles.iconleft} icon={<Icon size="xs" as={<AntDesign name="back" size={24} color="white" />} color="#fff" />} />
                                 </View>
                                 <View style={{ alignItems: 'center', flexDirection: 'row', justifyContent: 'center', width: '70%' }}>
-                                    <Heading size="md" color='#fff' textAlign='center'> DM-0065/20 </Heading>
+                                    <Heading size="md" color='#fff' textAlign='center'> {route.params.voyage.voyage_id} </Heading>
                                 </View>
                             </View>
                         </ImageBackground>
@@ -87,7 +91,7 @@ const SinistreComponent = ({ navigation }) => {
                                     </View>
                                     <View style={styles.v2}>
                                         <Text style={styles.txt_white}>
-                                            Information sur sinistre
+                                            Achat de ticket du voyage : {route.params.voyage.voyage_id}
                                         </Text>
                                     </View>
                                     <View style={styles.v3}>
@@ -100,7 +104,7 @@ const SinistreComponent = ({ navigation }) => {
                         <Formik
                             validationSchema={infoSinistreYup}
                             initialValues={{
-                                num_sinistre: '',
+                                num_ticket: 0,
                                 nom_proprietaire: '',
                                 prenom_proprietaire: '',
                                 numero_police: '',
@@ -123,7 +127,7 @@ const SinistreComponent = ({ navigation }) => {
 
                                 <View>
                                     {/* Numero */}
-                                    <FormControl isRequired isInvalid={(errors.num_sinistre && touched.num_sinistre)}>
+                                    <FormControl isRequired isInvalid={(errors.num_ticket && touched.num_ticket)}>
                                         <Stack mx={4}>
                                             <FormControl.Label _invalid={{
                                                 _text: {
@@ -131,18 +135,19 @@ const SinistreComponent = ({ navigation }) => {
                                                     fontWeight: "bold",
                                                 },
                                             }}>
-                                                Numero du sinistre
+                                                Nombre de ticket
                                             </FormControl.Label>
                                             <Input
                                                 p={2}
-                                                placeholder="Numero du sinistre"
-                                                onChangeText={handleChange('num_sinistre')}
-                                                onBlur={handleBlur('num_sinistre')}
-                                                value={values.num_sinistre}
+                                                placeholder="Nombre de ticket"
+                                                onChangeText={handleChange('num_ticket')}
+                                                onBlur={handleBlur('num_ticket')}
+                                                value={values.num_ticket}
+                                                keyboardType="numeric"
                                             />
-                                            {(errors.num_sinistre && touched.num_sinistre) &&
+                                            {(errors.num_ticket && touched.num_ticket) &&
                                                 <FormControl.ErrorMessage>
-                                                    {errors.num_sinistre}
+                                                    {errors.num_ticket}
                                                 </FormControl.ErrorMessage>
                                             }
                                             {/* <FormControl.HelperText>
@@ -151,7 +156,7 @@ const SinistreComponent = ({ navigation }) => {
                                         </Stack>
                                     </FormControl>
 
-                                        {/* Nom du propriétaire */}
+                                        {/* Prix du ticket */}
                                     <FormControl isRequired isInvalid={(errors.nom_proprietaire && touched.nom_proprietaire)}>
                                         <Stack mx={4}>
                                             <FormControl.Label _invalid={{
@@ -159,13 +164,12 @@ const SinistreComponent = ({ navigation }) => {
                                                     color: "#9f1239",
                                                     fontWeight: "bold",
                                                 },
-                                            }} style={styles.label}>Nom du propriétaire</FormControl.Label>
+                                            }} style={styles.label}>Prix du ticket</FormControl.Label>
                                             <Input
                                                 p={2}
-                                                placeholder="Nom du propriétaire"
-                                                onChangeText={handleChange('nom_proprietaire')}
-                                                onBlur={handleBlur('nom_proprietaire')}
-                                                value={values.nom_proprietaire}
+                                                placeholder=""
+                                                value={'8000'}
+                                                isDisabled={true}
                                             />
                                             {(errors.nom_proprietaire && touched.nom_proprietaire) &&
                                                 <FormControl.ErrorMessage>

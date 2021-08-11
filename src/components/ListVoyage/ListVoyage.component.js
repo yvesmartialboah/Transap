@@ -61,6 +61,11 @@ export default function ListVoyageComponent({ navigation }) {
 
   ];
 
+  const featureLoad = () => {
+    console.log('test')
+    setLoader(false)
+  }
+
   // Data User
   const ACTION = '_OBTENIRVOYAGE_';
   const USR_LOGIN = 'MOBILE';
@@ -69,10 +74,10 @@ export default function ListVoyageComponent({ navigation }) {
   // Data User
 
   useEffect(() => {
-    fetchVoyage(dispatch,ACTION,USR_LOGIN,USR_PASS,USR_ID)
-    setTimeout( ()=> {
-      setLoader(false)
-    },2000)
+    fetchVoyage(dispatch,ACTION,USR_LOGIN,USR_PASS,USR_ID, featureLoad)
+    // setTimeout( ()=> {
+    //   setLoader(false)
+    // },3000)
   }, []);
 
   const [listDATA, setlistDATA] = useState(voyage);
@@ -111,7 +116,11 @@ export default function ListVoyageComponent({ navigation }) {
           <Stack direction={'column'} space={5} mb={0} style={styles.stack}>
             <TouchableOpacity
               onPress={() => {
-                // navigation.navigate('')
+                navigation.navigate('BuyTicket', {
+                  voyage : {
+                    voyage_id : item.C_IM
+                  }
+                })
               }}
               style={styles.round}>
               <Text style={styles.txt_white}>
