@@ -12,22 +12,65 @@ import { infoParamYup } from './yup';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-
-
+import SInfo from 'react-native-sensitive-info';
+import AwesomeLoading from 'react-native-awesome-loading';
+import { useSelector, useDispatch } from "react-redux";
+import {fetchApiConfig, updateApiConfig} from '../../redux/actions';
+import {getapiConf} from '../../redux/selectors';
 
 export default function ParamServeurComponent({ navigation }) {
     const image = require('../../../assets/bgn.png');
     const logo_redi = require('../../../assets/logo_redi.png');
     const { height } = Dimensions.get('window');
+    const [link, setLink] = useState(apiConf);
+    const [refresh, setRefresh] = useState(false);
+    const [loader, setLoader] = useState(false);
+    const dispatch = useDispatch();
+    const apiConf = useSelector(getapiConf);
 
-
+    // Initialisation de l'addresse du server
+    const InitialServerAdress = () => {
+        SInfo.getItem('linkApi', {}).then(value => {
+            if (value == null) {
+                saveLinkInStorage('https://urban-mobility-management.com')
+                dispatch(fetchApiConfig(1,'https://urban-mobility-management.com'))
+                // console.log(value, 'value server v')
+            } else {
+                // console.log(value, 'value server')
+                // console.log(JSON.parse(value).linkServer, 'value server')
+                saveLinkInStorage(JSON.parse(value).linkServer)
+                dispatch(fetchApiConfig(1,JSON.parse(value).linkServer))
+            }
+        })
+    }
+    
     
     useEffect(() => {
-        // 
-    }, []);
+        InitialServerAdress() 
+        // setLink(apiConf[0].api)
+        // console.log(apiConf[0].api, 'apiConf')
+    }, [link]);
+    
+    
+    
+    
+
+    const saveLinkInStorage = async (paramLink) => {
+        // console.log( 'ns')
+
+        // Configuration des données
+        await SInfo.setItem('linkApi', JSON.stringify({
+            linkServer: paramLink,
+        }), {});
+
+        
+        dispatch(updateApiConfig(1, paramLink))
+        setLink(paramLink)
+    }
 
     return (
         <ImageBackground source={image}  style={{ height: '100%'}}>
+            <AwesomeLoading indicatorId={4} size={50} isActive={loader} text="loading" />
                 <NativeBaseProvider>
                 <ScrollView style={{ height }}>
                     <Stack space={5} mt={0} height={'100%'}>
@@ -55,7 +98,26 @@ export default function ParamServeurComponent({ navigation }) {
                                     </View>
                                     <View style={styles.v2}>
                                         <Text style={styles.txt_white}>
-                                            Addresse IP
+                                            Addresse IP 
+                                        </Text>
+                                    </View>
+                                    <View style={styles.v3}>
+                                        <AntDesign name="infocirlce" size={22} color="black" />
+                                    </View>
+                                </View>
+                            </Stack>
+                        </View>
+                        <View
+                            style={{ alignItems: 'center', flexDirection: 'row', justifyContent: 'center', width: '100%' }}
+                        >
+                            <Stack direction={'column'} space={5} mb={0} style={styles.stack}>
+                                <View style={styles.round}>
+                                    <View style={styles.v1}>
+                                        {/* <Text>d</Text> */}
+                                    </View>
+                                    <View style={styles.v2}>
+                                        <Text style={styles.txt_white}>
+                                            ({link })
                                         </Text>
                                     </View>
                                     <View style={styles.v3}>
@@ -70,7 +132,10 @@ export default function ParamServeurComponent({ navigation }) {
                             initialValues={{
                                 addresse_ip: ''
                             }}
-                            onSubmit={values => console.log(values)}
+                            onSubmit={values => {
+                                saveLinkInStorage(values.addresse_ip)
+                                // console.log(values)
+                            }}
                         >
                             {({
                                 handleChange,
@@ -122,7 +187,7 @@ export default function ParamServeurComponent({ navigation }) {
                                             onPress={handleSubmit}
                                             disabled={!isValid}
                                         >
-                                            Configurer
+                                            ENREGISTRER
                                         </Button>
                                     </Stack>
 

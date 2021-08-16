@@ -44,6 +44,8 @@ const BuyTicketComponent = ({ navigation, route }) => {
     const USR_LOGIN = 'MOBILE';
     const USR_PASS = '1234';
     const USR_ID = 37;
+    const NOMBRE = 1; 
+    const V_ID = 1; 
     // Data User
 
 
@@ -58,7 +60,9 @@ const BuyTicketComponent = ({ navigation, route }) => {
                 TCK_NUM,
                 USR_LOGIN,
                 USR_PASS,
-                USR_ID
+                USR_ID,
+                NOMBRE,
+                V_ID
             }
         })
             .then(function (response) {

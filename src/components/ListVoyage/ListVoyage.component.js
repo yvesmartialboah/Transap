@@ -6,13 +6,14 @@ import Foundation from 'react-native-vector-icons/Foundation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { useSelector, useDispatch } from "react-redux";
-import { getvoyage } from '../../redux/selectors';
+import { getvoyage, getapiConf } from '../../redux/selectors';
 import {fetchVoyage} from '../../api/ListVoyage/index';
 import AwesomeLoading from 'react-native-awesome-loading';
 
 
 export default function ListVoyageComponent({ navigation }) {
   const voyage = useSelector(getvoyage);
+  const apiConf = useSelector(getapiConf);
   const dispatch = useDispatch();
 
   const [searchType, setSearchType] = useState('');
@@ -74,13 +75,15 @@ export default function ListVoyageComponent({ navigation }) {
   // Data User
 
   useEffect(() => {
-    fetchVoyage(dispatch,ACTION,USR_LOGIN,USR_PASS,USR_ID, featureLoad)
+    // console.log(link, 'link')
+    fetchVoyage(dispatch,ACTION,USR_LOGIN,USR_PASS,USR_ID, featureLoad, link[0].api)
     // setTimeout( ()=> {
     //   setLoader(false)
     // },3000)
   }, []);
 
   const [listDATA, setlistDATA] = useState(voyage);
+  const [link, setLink] = useState(apiConf);
   const [checkData, setcheckData] = useState(true);
 
   const onTypeChange = (val) => {
