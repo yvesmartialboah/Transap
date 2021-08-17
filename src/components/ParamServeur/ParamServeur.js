@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { StyleSheet, Text, View, ImageBackground, Dimensions, FlatList, TouchableOpacity, ScrollView } from 'react-native'
+import { StyleSheet, Text, View, ImageBackground, Dimensions, FlatList, TouchableOpacity, ScrollView, ToastAndroid } from 'react-native'
 import {
     Box, VStack, Stack, Center, Heading, IconButton, Icon, Button, NativeBaseProvider,
     FormControl,
@@ -66,6 +66,8 @@ export default function ParamServeurComponent({ navigation }) {
         
         dispatch(updateApiConfig(1, paramLink))
         setLink(paramLink)
+        ToastAndroid.show("Adresse changer avec succès", ToastAndroid.SHORT)
+
     }
 
     return (

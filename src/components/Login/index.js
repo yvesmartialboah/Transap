@@ -25,26 +25,28 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import * as Animatable from 'react-native-animatable';
 import SplashScreen from 'react-native-splash-screen';
 const { height } = Dimensions.get('window');
+const themeColor = '#2D4F6B';
 
-const theme = extendTheme({
-  components: {
-    Input: {
-      baseStyle: {
-        borderColor: '#c3b27f',
-        _hover: {
-          borderColor: '#fff'
-        }
-      },
-      defaultProps: {},
-      variants: {},
-      sizes: {},
-    }
-  }
-});
+
 const logo = require('../../../assets/logo_redi.png');
 
 export default function LoginComponent({ navigation }) {
 
+  const theme = extendTheme({
+    components: {
+      Input: {
+        baseStyle: {
+          borderColor: themeColor,
+          _hover: {
+            borderColor: '#fff'
+          }
+        },
+        defaultProps: {},
+        variants: {},
+        sizes: {},
+      }
+    }
+  });
   const hideSplash = () => {
     SplashScreen.hide();
   }
@@ -99,7 +101,7 @@ export default function LoginComponent({ navigation }) {
           // flex={1}
           // bg="#fff"
           >
-            <Heading size="lg" color='#c3b27f' textAlign='center'>
+            <Heading size="lg" color={themeColor} textAlign='center'>
               Connexion
             </Heading>
             <Text textAlign='center' style={styles.text2}>
@@ -108,7 +110,7 @@ export default function LoginComponent({ navigation }) {
 
             <VStack space={2} mt={5}>
               <FormControl>
-                <FormControl.Label _text={{ color: '#c3b27f', fontSize: 'sm', fontWeight: 600 }}>
+                <FormControl.Label _text={{ color: {themeColor}, fontSize: 'sm', fontWeight: 600 }}>
                   Email
                 </FormControl.Label>
                 <Input
@@ -129,10 +131,10 @@ export default function LoginComponent({ navigation }) {
                       }}
                     />
                   }
-                  style={styles.input} placeholder='transport@contact.ci' />
+                  style={styles.input} placeholder='transap@contact.ci' />
               </FormControl>
               <FormControl mb={5}>
-                <FormControl.Label _text={{ color: '#c3b27f', fontSize: 'sm', fontWeight: 600 }}>
+                <FormControl.Label _text={{ color: {themeColor}, fontSize: 'sm', fontWeight: 600 }}>
                   Mot de passe
                 </FormControl.Label>
                 <Input style={styles.input} type="password" secureTextEntry={secureTextEntry} placeholder='Mot de passe'
@@ -189,7 +191,7 @@ export default function LoginComponent({ navigation }) {
                   >
                     <Center
                       size={70}
-                      bg="#c3b27f"
+                      bg={themeColor}
                       width={'100%'}
                       rounded={10}
                       _text={{
@@ -213,7 +215,7 @@ export default function LoginComponent({ navigation }) {
                     style={styles.touch}
                   >
                   <Center
-                    bg="#c3b27f"
+                    bg={themeColor}
                     size={70}
                     width={'100%'}
                     rounded={10}
@@ -288,7 +290,7 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
   },
   btn: {
-    backgroundColor: '#c3b27f',
+    backgroundColor: themeColor,
   },
   bar: {
     // flex: 1,
