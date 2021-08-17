@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { StyleSheet, Text, View, ImageBackground, Dimensions, FlatList, TouchableOpacity, ScrollView } from 'react-native'
+import { StyleSheet, Text, View, ImageBackground, Dimensions, FlatList, TouchableOpacity, ScrollView, ToastAndroid} from 'react-native'
 import { Box, VStack, Stack, Center, Heading, IconButton, Icon, Button, NativeBaseProvider, Input } from "native-base"
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Foundation from 'react-native-vector-icons/Foundation';
@@ -121,7 +121,9 @@ export default function ListVoyageComponent({ navigation }) {
               onPress={() => {
                 navigation.navigate('BuyTicket', {
                   voyage : {
-                    voyage_id : item.C_IM
+                    voyage_id : item.V_ID,
+                    V_VILLEDEPART: item.V_VILLEDEPART,
+                    V_VILLEARRIVE: item.V_VILLEARRIVE
                   }
                 })
               }}

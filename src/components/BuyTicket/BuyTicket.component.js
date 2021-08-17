@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { StyleSheet, Text, View, ImageBackground, Dimensions, Image, TouchableOpacity, ScrollView } from 'react-native'
+import { StyleSheet, Text, View, ImageBackground, Dimensions, Image, TouchableOpacity, ScrollView, ToastAndroid } from 'react-native'
 import {
     Box, VStack, Stack, Center, Heading, IconButton, Icon, Button, NativeBaseProvider,
     FormControl,
@@ -20,6 +20,8 @@ import moment from 'moment';
 import axios from 'axios';
 import 'moment/locale/en-au';
 import AwesomeLoading from 'react-native-awesome-loading';
+import { useSelector, useDispatch } from "react-redux";
+import { getapiConf } from '../../redux/selectors';
 
 const success = require('../../../assets/check-lg.png');
 const success_or = require('../../../assets/check-lg-or.png');
@@ -32,36 +34,35 @@ const BuyTicketComponent = ({ navigation, route }) => {
     const image = require('../../../assets/bgn.png');
     const logo_redi = require('../../../assets/logo_redi.png');
     const { height } = Dimensions.get('window');
+    const apiConf = useSelector(getapiConf);
+    const [link, setLink] = useState(apiConf);
 
     useEffect(() => {
         // console.log(route.params.voyage.voyage_id, 'route.params.voyage.voyage_id')
+        // console.log(link)
     })
     // Data User
-    const ACTION = '_PAIEMENT_';
-    const GH_ID = 14;
-    // const OPR_MONTANT = 8000;
-    const TCK_NUM = 20210728680;
+    const ACTION = '_PAIEMENTMOBILE_';
     const USR_LOGIN = 'MOBILE';
     const USR_PASS = '1234';
     const USR_ID = 37;
-    const NOMBRE = 1; 
-    const V_ID = 1; 
+    const GH_ID = 14;
+    const NOMBRE = null; 
+    const V_ID = route.params.voyage.voyage_id; 
     // Data User
 
 
 
-    const AchatTicket = (OPR_MONTANT) => {
+    const AchatTicket = (num_ticket) => {
         setLoader(true)
-        axios.get('https://urban-mobility-management.com/Layers/Business/Controller/Bs_ApiMobileSiteController.php', {
+        axios.get(link[0].api + '/Layers/Business/Controller/Bs_ApiMobileSiteController.php', {
             params: {
                 ACTION,
-                GH_ID,
-                OPR_MONTANT: OPR_MONTANT,
-                TCK_NUM,
                 USR_LOGIN,
                 USR_PASS,
                 USR_ID,
-                NOMBRE,
+                GH_ID,
+                NOMBRE: num_ticket,
                 V_ID
             }
         })
@@ -70,6 +71,7 @@ const BuyTicketComponent = ({ navigation, route }) => {
                 setLoader(false)
                 if (response.status == 200) {
                     setShowModal(true)
+                    ToastAndroid.show("Ticket acheté avec succès", ToastAndroid.SHORT)
                 }
             })
             .catch(function (error) {
@@ -96,7 +98,9 @@ const BuyTicketComponent = ({ navigation, route }) => {
                                     <IconButton onPress={() => { navigation.goBack() }} style={styles.iconleft} icon={<Icon size="xs" as={<AntDesign name="back" size={24} color="white" />} color="#fff" />} />
                                 </View>
                                 <View style={{ alignItems: 'center', flexDirection: 'row', justifyContent: 'center', width: '70%' }}>
-                                    <Heading size="md" color='#fff' textAlign='center'> {route.params.voyage.voyage_id} </Heading>
+                                    <Heading size="md" color='#fff' textAlign='center'>
+                                        {route.params.voyage.V_VILLEDEPART} - {route.params.voyage.V_VILLEARRIVE}
+                                    </Heading>
                                 </View>
                             </View>
                         </ImageBackground>
@@ -113,7 +117,7 @@ const BuyTicketComponent = ({ navigation, route }) => {
                                     </View>
                                     <View style={styles.v2}>
                                         <Text style={styles.txt_white}>
-                                            Achat de ticket du voyage : {route.params.voyage.voyage_id}
+                                            Acheter un ticket  
                                         </Text>
                                     </View>
                                     <View style={styles.v3}>
@@ -174,24 +178,6 @@ const BuyTicketComponent = ({ navigation, route }) => {
                                             {/* <FormControl.HelperText>
                                             We'll keep this between us.
                                         </FormControl.HelperText> */}
-                                        </Stack>
-                                    </FormControl>
-
-                                    {/* Prix du ticket */}
-                                    <FormControl>
-                                        <Stack mx={4}>
-                                            <FormControl.Label _invalid={{
-                                                _text: {
-                                                    color: "#9f1239",
-                                                    fontWeight: "bold",
-                                                },
-                                            }} style={styles.label}>Prix du ticket</FormControl.Label>
-                                            <Input
-                                                p={2}
-                                                placeholder=""
-                                                value={'8000'}
-                                                isDisabled={true}
-                                            />
                                         </Stack>
                                     </FormControl>
 

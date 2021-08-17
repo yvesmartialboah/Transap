@@ -136,6 +136,7 @@ export default function ParamServeurComponent({ navigation }) {
                             }}
                             onSubmit={values => {
                                 saveLinkInStorage(values.addresse_ip)
+                                values.addresse_ip = null;
                                 // console.log(values)
                             }}
                         >
