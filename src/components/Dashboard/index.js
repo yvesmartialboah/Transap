@@ -53,7 +53,12 @@ export default function DashboardComponent({ navigation }) {
 
                 <TouchableOpacity
                   onPress={() => {
-                    navigation.navigate('ListVoyage')
+                    navigation.navigate('ListVoyage', {
+                      getvoy: {
+                        reload: true,
+                        time: new Date()
+                      }
+                    })
                   }}
                   activeOpacity={0.8}
                   style={styles.touch}
@@ -84,10 +89,10 @@ export default function DashboardComponent({ navigation }) {
 
 
             {/* Deuxième Ligne */}
-            <Stack space={5} mt={0} alignItems="center">
               {/* TicketsVendu */}
+            <Stack space={5} mt={0} alignItems="center">
               <Stack direction={'row'} space={5} style={styles.stack}>
-                <TouchableOpacity
+                {/* <TouchableOpacity
                   onPress={() => {
                     navigation.navigate('TicketsVendu')
                   }}
@@ -110,10 +115,10 @@ export default function DashboardComponent({ navigation }) {
                     <FontAwesome name="money" size={28} color="#fff" />
                     Tickets Vendu
                   </Center>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
 
                 {/* Tickets Scannés */}
-                <TouchableOpacity
+                {/* <TouchableOpacity
                   onPress={() => {
                     navigation.navigate('TicketsScanner')
                   }}
@@ -136,7 +141,7 @@ export default function DashboardComponent({ navigation }) {
                     <MaterialIcons name="qr-code-scanner" size={28} color="#fff" />
                     Tickets Scannés
                   </Center>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
 
               </Stack>
               {/*  */}

@@ -11,7 +11,7 @@ import {fetchVoyage} from '../../api/ListVoyage/index';
 import AwesomeLoading from 'react-native-awesome-loading';
 
 
-export default function ListVoyageComponent({ navigation }) {
+export default function ListVoyageComponent({ navigation, route }) {
   const voyage = useSelector(getvoyage);
   const apiConf = useSelector(getapiConf);
   const dispatch = useDispatch();
@@ -63,7 +63,7 @@ export default function ListVoyageComponent({ navigation }) {
   ];
 
   const featureLoad = () => {
-    console.log('test')
+    // console.log('test')
     setLoader(false)
   }
 
@@ -75,12 +75,14 @@ export default function ListVoyageComponent({ navigation }) {
   // Data User
 
   useEffect(() => {
-    // console.log(link, 'link')
-    fetchVoyage(dispatch,ACTION,USR_LOGIN,USR_PASS,USR_ID, featureLoad, link[0].api)
+    // console.log(route.params.getvoy.reload, 'route.params')
+    // console.log(route.params.getvoy.time, 'time')
+    console.log(apiConf, 'apiConf')
+    setLoader(true)
+    fetchVoyage(dispatch,ACTION,USR_LOGIN,USR_PASS,USR_ID, featureLoad, apiConf[0].api)
     // setTimeout( ()=> {
-    //   setLoader(false)
-    // },3000)
-  }, []);
+    // },1000)
+  }, [route.params.getvoy.time]);
 
   const [listDATA, setlistDATA] = useState(voyage);
   const [link, setLink] = useState(apiConf);

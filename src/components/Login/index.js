@@ -207,7 +207,7 @@ export default function LoginComponent({ navigation }) {
                     </Center>
                   </TouchableOpacity>
 
-                  <TouchableOpacity
+                  {/* <TouchableOpacity
                     onPress={() => {
                       navigation.navigate('ParamLogo')
                     }}
@@ -230,7 +230,7 @@ export default function LoginComponent({ navigation }) {
                     <MaterialIcons name="flip-camera-ios" size={30} color="#fff" />
                     Changer le logo
                   </Center>
-                  </TouchableOpacity>
+                  </TouchableOpacity> */}
                 </Stack>
                 {/*  */}
 

@@ -38,8 +38,9 @@ const BuyTicketComponent = ({ navigation, route }) => {
     const [link, setLink] = useState(apiConf);
 
     useEffect(() => {
+        setLink(apiConf)
+        console.log(link)
         // console.log(route.params.voyage.voyage_id, 'route.params.voyage.voyage_id')
-        // console.log(link)
     })
     // Data User
     const ACTION = '_PAIEMENTMOBILE_';
@@ -55,7 +56,7 @@ const BuyTicketComponent = ({ navigation, route }) => {
 
     const AchatTicket = (num_ticket) => {
         setLoader(true)
-        axios.get(link[0].api + '/Layers/Business/Controller/Bs_ApiMobileSiteController.php', {
+        axios.get(apiConf[0].api + '/Layers/Business/Controller/Bs_ApiMobileSiteController.php', {
             params: {
                 ACTION,
                 USR_LOGIN,

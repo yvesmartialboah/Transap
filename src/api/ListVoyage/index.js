@@ -21,6 +21,8 @@ export const fetchVoyage = async (dispatch, ACTION, USR_LOGIN, USR_PASS, USR_ID,
         dispatch(fetchVoyageAction(response.data));
         featureLoad()
     } catch (error) {
+        featureLoad()
+        dispatch(fetchVoyageAction([]));
         console.log(error, 'erreur interne fetchVoyage');
     }
 }

@@ -34,12 +34,12 @@ export default function ParamServeurComponent({ navigation }) {
             if (value == null) {
                 saveLinkInStorage('https://urban-mobility-management.com')
                 dispatch(updateApiConfig(1,'https://urban-mobility-management.com'))
-                // console.log(value, 'value server v')
+                console.log(value, 'value server v')
             } else {
-                // console.log(value, 'value server')
                 // console.log(JSON.parse(value).linkServer, 'value server')
                 saveLinkInStorage(JSON.parse(value).linkServer)
                 dispatch(updateApiConfig(1,JSON.parse(value).linkServer))
+                console.log(JSON.parse(value).linkServer, 'value server')
             }
         })
     }
@@ -48,7 +48,7 @@ export default function ParamServeurComponent({ navigation }) {
     useEffect(() => {
         InitialServerAdress() 
         // setLink(apiConf[0].api)
-        console.log(apiConf, 'apiConf')
+        // console.log(apiConf, 'apiConf')
     }, []);
     
     
