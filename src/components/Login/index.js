@@ -24,6 +24,8 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import * as Animatable from 'react-native-animatable';
 import SplashScreen from 'react-native-splash-screen';
+import { LoginYup } from './yup';
+import { Formik } from 'formik';
 const { height } = Dimensions.get('window');
 const themeColor = '#2D4F6B';
 
@@ -79,13 +81,13 @@ export default function LoginComponent({ navigation }) {
           >
             <View style={styles.line}>
               {/* <Animatable.View animation='zoomIn' iterationDelay={1000} iterationCount='infinite' direction="alternate" duration={3000}> */}
-                <Image
-                  size={150}
-                  resizeMode={"contain"}
-                  borderRadius={100}
-                  source={logo}
-                  alt="Alternate Text"
-                />
+              <Image
+                size={150}
+                resizeMode={"contain"}
+                borderRadius={100}
+                source={logo}
+                alt="Alternate Text"
+              />
               {/* </Animatable.View> */}
             </View>
             <View style={styles.lineSecond}>
@@ -94,120 +96,175 @@ export default function LoginComponent({ navigation }) {
           </Box>
 
 
-          <Box
-            p={2}
-            w="90%"
-            mx='auto'
-          // flex={1}
-          // bg="#fff"
+          <Formik
+            validationSchema={LoginYup}
+            initialValues={{
+              email: '', //-
+              password: ''
+            }}
+            onSubmit={(values) => {
+              // nextPage(values)
+              // navigation.navigate('Dashboard')
+              console.log(values, 'values')
+            }}
           >
-            <Heading size="lg" color={themeColor} textAlign='center'>
-              Connexion
-            </Heading>
-            <Text textAlign='center' style={styles.text2}>
-              Heureux de vous revoir parmis nous.
-            </Text>
+            {({
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              setFieldValue,
+              values,
+              errors,
+              isValid,
+              touched,
+            }) => (
+              <Box
+                p={2}
+                w="90%"
+                mx='auto'
+              // flex={1}
+              // bg="#fff"
+              >
+                <Heading size="lg" color={themeColor} textAlign='center'>
+                  Connexion
+                </Heading>
+                <Text textAlign='center' style={styles.text2}>
+                  Heureux de vous revoir parmis nous.
+                </Text>
 
-            <VStack space={2} mt={5}>
-              <FormControl>
-                <FormControl.Label _text={{ color: {themeColor}, fontSize: 'sm', fontWeight: 600 }}>
-                  Email
-                </FormControl.Label>
-                <Input
-                  InputRightElement={
-                    <Icon
-                      as={<MaterialIcons name={'message'} />}
-                      size="md"
-                      m={2}
-                      _hover={{
-                        color: "#c3b27f",
-                      }}
-                      _light={{
-                        color: "#abb5be",
-                        // color: "#c3b27f",
-                      }}
-                      _dark={{
-                        color: "gray.300",
-                      }}
+                <VStack space={2} mt={5}>
+                  <FormControl isRequired isInvalid={(errors.email && touched.email)}>
+                    <FormControl.Label _text={{ color: { themeColor }, fontSize: 'sm', fontWeight: 600 }}>
+                      Email
+                    </FormControl.Label>
+                    <Input
+                     onChangeText={handleChange('email')}
+                     onBlur={handleBlur('email')}
+                     value={values.email}
+                      InputRightElement={
+                        <Icon
+                          as={<MaterialIcons name={'message'} />}
+                          size="md"
+                          m={2}
+                          _hover={{
+                            color: "#c3b27f",
+                          }}
+                          _light={{
+                            color: "#abb5be",
+                            // color: "#c3b27f",
+                          }}
+                          _dark={{
+                            color: "gray.300",
+                          }}
+                        />
+                      }
+                      style={styles.input} 
+                      placeholder='transap@contact.ci' />
+                      <View style={styles.alert}>
+                      {(errors.email && touched.email) &&
+                        <FormControl.ErrorMessage>
+                          {errors.email}
+                        </FormControl.ErrorMessage>
+                      }
+                    </View>
+                  </FormControl>
+
+
+                  <FormControl mb={5} isRequired isInvalid={(errors.password && touched.password)}>
+                    <FormControl.Label _text={{ color: { themeColor }, fontSize: 'sm', fontWeight: 600 }}>
+                      Mot de passe
+                    </FormControl.Label>
+                    <Input
+                      style={styles.input}
+                      type="password"
+                      secureTextEntry={secureTextEntry}
+                      placeholder='Mot de passe'
+                      onChangeText={handleChange('password')}
+                      onBlur={handleBlur('password')}
+                      value={values.password}
+                      InputRightElement={
+                        <Icon
+                          onPress={() => {
+                            setsecureTextEntry(!secureTextEntry)
+                          }}
+                          as={<MaterialIcons name={secureTextEntry === true ? 'visibility' : 'info'} />}
+                          size="md"
+                          m={2}
+                          _hover={{
+                            color: "#c3b27f",
+                          }}
+                          _light={{
+                            // color: "#c3b27f",
+                            color: "#abb5be",
+                          }}
+                          _dark={{
+                            color: "gray.300",
+                          }}
+                        />
+                      }
                     />
-                  }
-                  style={styles.input} placeholder='transap@contact.ci' />
-              </FormControl>
-              <FormControl mb={5}>
-                <FormControl.Label _text={{ color: {themeColor}, fontSize: 'sm', fontWeight: 600 }}>
-                  Mot de passe
-                </FormControl.Label>
-                <Input style={styles.input} type="password" secureTextEntry={secureTextEntry} placeholder='Mot de passe'
-                  InputRightElement={
-                    <Icon
-                      onPress={() => {
-                        setsecureTextEntry(!secureTextEntry)
-                      }}
-                      as={<MaterialIcons name={secureTextEntry === true ? 'visibility' : 'info'} />}
-                      size="md"
-                      m={2}
-                      _hover={{
-                        color: "#c3b27f",
-                      }}
-                      _light={{
-                        // color: "#c3b27f",
-                        color: "#abb5be",
-                      }}
-                      _dark={{
-                        color: "gray.300",
-                      }}
-                    />
-                  }
-                />
-                {/* <Link
+                    <View style={styles.alert}>
+                      {(errors.password && touched.password) &&
+                        <FormControl.ErrorMessage>
+                          {errors.password}
+                        </FormControl.ErrorMessage>
+                      }
+                    </View>
+
+                    {/* <Link
               _text={{ fontSize: 'xs', fontWeight: '700', color: 'cyan.500' }}
               alignSelf="flex-end"
               mt={1}
             >
               Forget Password?
             </Link> */}
-              </FormControl>
-              <VStack space={2}>
-                <Button onPress={() => { navigation.navigate('Dashboard') }}
-                  style={styles.btn}
-                  _text={{ color: 'white', fontWeight: 'bold' }}
-                  startIcon={<AntDesign name="login" size={24} color="#fff" />}
-                >
-                  Continue
-                </Button>
-
-
-              </VStack>
-              {/* Première Ligne */}
-              <Stack space={5} mt={5} justifyContent="space-between" alignItems="center">
-                {/*  */}
-                <Stack direction={'row'} space={5} mb={0} style={styles.stack}>
-                  <TouchableOpacity
-                    onPress={() => {
-                      navigation.navigate('ParamServeur')
-                    }}
-                    activeOpacity={0.8}
-                    style={styles.touch}
-                  >
-                    <Center
-                      size={70}
-                      bg={themeColor}
-                      width={'100%'}
-                      rounded={10}
-                      _text={{
-                        color: "white",
-                        fontSize: 12,
-                        fontWeight: 'bold'
-                      }}
-                      shadow={3}
-                    // mr={5}
+                  </FormControl>
+                  <VStack space={2}>
+                    <Button
+                      onPress={handleSubmit}
+                      disabled={!isValid}
+                      // onPress={() => {
+                      //   navigation.navigate('Dashboard')
+                      // }}
+                      style={styles.btn}
+                      _text={{ color: 'white', fontWeight: 'bold' }}
+                      startIcon={<AntDesign name="login" size={24} color="#fff" />}
                     >
-                      <MaterialCommunityIcons name="api" size={30} color="#fff" />
-                      Lien du serveur
-                    </Center>
-                  </TouchableOpacity>
+                      Continue
+                    </Button>
 
-                  {/* <TouchableOpacity
+
+                  </VStack>
+                  {/* Première Ligne */}
+                  <Stack space={5} mt={5} justifyContent="space-between" alignItems="center">
+                    {/*  */}
+                    <Stack direction={'row'} space={5} mb={0} style={styles.stack}>
+                      <TouchableOpacity
+                        onPress={() => {
+                          navigation.navigate('ParamServeur')
+                        }}
+                        activeOpacity={0.8}
+                        style={styles.touch}
+                      >
+                        <Center
+                          size={70}
+                          bg={themeColor}
+                          width={'100%'}
+                          rounded={10}
+                          _text={{
+                            color: "white",
+                            fontSize: 12,
+                            fontWeight: 'bold'
+                          }}
+                          shadow={3}
+                        // mr={5}
+                        >
+                          <MaterialCommunityIcons name="api" size={30} color="#fff" />
+                          Lien du serveur
+                        </Center>
+                      </TouchableOpacity>
+
+                      {/* <TouchableOpacity
                     onPress={() => {
                       navigation.navigate('ParamLogo')
                     }}
@@ -231,19 +288,23 @@ export default function LoginComponent({ navigation }) {
                     Changer le logo
                   </Center>
                   </TouchableOpacity> */}
-                </Stack>
-                {/*  */}
+                    </Stack>
+                    {/*  */}
 
 
-              </Stack>
-              {/* Première Ligne */}
+                  </Stack>
+                  {/* Première Ligne */}
 
 
-              <HStack justifyContent="center">
-                <View style={styles.bar}></View>
-              </HStack>
-            </VStack>
-          </Box>
+                  <HStack justifyContent="center">
+                    <View style={styles.bar}></View>
+                  </HStack>
+                </VStack>
+              </Box>
+
+            )}
+
+          </Formik>
 
         </Box>
       </ScrollView>

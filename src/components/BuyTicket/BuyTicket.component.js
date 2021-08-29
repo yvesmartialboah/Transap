@@ -39,7 +39,7 @@ const BuyTicketComponent = ({ navigation, route }) => {
 
     useEffect(() => {
         setLink(apiConf)
-        console.log(link)
+        // console.log(link)
         // console.log(route.params.voyage.voyage_id, 'route.params.voyage.voyage_id')
     })
     // Data User
