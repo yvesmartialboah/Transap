@@ -20,3 +20,12 @@ export const updateApiConfig = (id,api) => ({
         api
     }
 })
+
+// Mettre à jour l'utilisateur
+export const updateUserConfig = (id,data) => ({
+    type: UPDATE_USER,
+    payload: {
+        id,
+        data
+    }
+})

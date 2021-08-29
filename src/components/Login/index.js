@@ -26,9 +26,14 @@ import * as Animatable from 'react-native-animatable';
 import SplashScreen from 'react-native-splash-screen';
 import { LoginYup } from './yup';
 import { Formik } from 'formik';
+import { useSelector, useDispatch } from "react-redux";
+import { updateUserConfig } from '../../redux/actions';
+import { getUserConf } from '../../redux/selectors';
+
+
 const { height } = Dimensions.get('window');
 const themeColor = '#2D4F6B';
-
+import Toast from 'react-native-toast-message';
 
 const logo = require('../../../assets/logo_redi.png');
 
@@ -53,7 +58,19 @@ export default function LoginComponent({ navigation }) {
     SplashScreen.hide();
   }
 
+  const LoginApp = (param) => {
+    if (param.email == "MOBILE" && param.password == "1234") {
+      navigation.navigate('Dashboard')
+    } else {
+
+    }
+  }
+
+  const dispatch = useDispatch();
+  const userConf = useSelector(getUserConf);
+
   useEffect(() => {
+    console.log(userConf, 'userConf')
     hideSplash();
   });
 
@@ -103,8 +120,7 @@ export default function LoginComponent({ navigation }) {
               password: ''
             }}
             onSubmit={(values) => {
-              // nextPage(values)
-              // navigation.navigate('Dashboard')
+              LoginApp(values)
               console.log(values, 'values')
             }}
           >
@@ -138,9 +154,9 @@ export default function LoginComponent({ navigation }) {
                       Email
                     </FormControl.Label>
                     <Input
-                     onChangeText={handleChange('email')}
-                     onBlur={handleBlur('email')}
-                     value={values.email}
+                      onChangeText={handleChange('email')}
+                      onBlur={handleBlur('email')}
+                      value={values.email}
                       InputRightElement={
                         <Icon
                           as={<MaterialIcons name={'message'} />}
@@ -158,9 +174,9 @@ export default function LoginComponent({ navigation }) {
                           }}
                         />
                       }
-                      style={styles.input} 
+                      style={styles.input}
                       placeholder='transap@contact.ci' />
-                      <View style={styles.alert}>
+                    <View style={styles.alert}>
                       {(errors.email && touched.email) &&
                         <FormControl.ErrorMessage>
                           {errors.email}
