@@ -6,14 +6,14 @@ import Foundation from 'react-native-vector-icons/Foundation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { useSelector, useDispatch } from "react-redux";
-import { getvoyage, getapiConf } from '../../redux/selectors';
+import { getvoyage, getapiConf, getUserConf } from '../../redux/selectors';
 import {fetchVoyage} from '../../api/ListVoyage/index';
 import AwesomeLoading from 'react-native-awesome-loading';
-
 
 export default function ListVoyageComponent({ navigation, route }) {
   const voyage = useSelector(getvoyage);
   const apiConf = useSelector(getapiConf);
+  const userConf = useSelector(getUserConf);
   const dispatch = useDispatch();
 
   const [searchType, setSearchType] = useState('');
@@ -69,15 +69,16 @@ export default function ListVoyageComponent({ navigation, route }) {
 
   // Data User
   const ACTION = '_OBTENIRVOYAGE_';
-  const USR_LOGIN = 'MOBILE';
-  const USR_PASS = 1234;
-  const USR_ID = 37;
+  const USR_LOGIN = userConf[0].usr_login;
+  const USR_PASS =  userConf[0].usr_pass;
+  const USR_ID = userConf[0].usr_id;
   // Data User
 
   useEffect(() => {
     // console.log(route.params.getvoy.reload, 'route.params')
     // console.log(route.params.getvoy.time, 'time')
-    console.log(apiConf, 'apiConf')
+    // console.log(apiConf, 'apiConf')
+    // console.log(userConf, 'userConf')
     setLoader(true)
     fetchVoyage(dispatch,ACTION,USR_LOGIN,USR_PASS,USR_ID, featureLoad, apiConf[0].api)
     // setTimeout( ()=> {

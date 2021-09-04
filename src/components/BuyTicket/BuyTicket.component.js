@@ -21,7 +21,7 @@ import axios from 'axios';
 import 'moment/locale/en-au';
 import AwesomeLoading from 'react-native-awesome-loading';
 import { useSelector, useDispatch } from "react-redux";
-import { getapiConf } from '../../redux/selectors';
+import { getapiConf, getUserConf } from '../../redux/selectors';
 
 const success = require('../../../assets/check-lg.png');
 const success_or = require('../../../assets/check-lg-or.png');
@@ -35,21 +35,23 @@ const BuyTicketComponent = ({ navigation, route }) => {
     const logo_redi = require('../../../assets/logo_redi.png');
     const { height } = Dimensions.get('window');
     const apiConf = useSelector(getapiConf);
+    const userConf = useSelector(getUserConf);
     const [link, setLink] = useState(apiConf);
 
     useEffect(() => {
         setLink(apiConf)
+        // console.log(userConf, 'userConf')
         // console.log(link)
         // console.log(route.params.voyage.voyage_id, 'route.params.voyage.voyage_id')
     })
     // Data User
     const ACTION = '_PAIEMENTMOBILE_';
-    const USR_LOGIN = 'MOBILE';
-    const USR_PASS = '1234';
-    const USR_ID = 37;
+    const USR_LOGIN = userConf[0].usr_login;
+    const USR_PASS = userConf[0].usr_pass;
+    const USR_ID = userConf[0].usr_id;
     const GH_ID = 14;
-    const NOMBRE = null; 
-    const V_ID = route.params.voyage.voyage_id; 
+    const NOMBRE = null;
+    const V_ID = route.params.voyage.voyage_id;
     // Data User
 
 
@@ -118,7 +120,7 @@ const BuyTicketComponent = ({ navigation, route }) => {
                                     </View>
                                     <View style={styles.v2}>
                                         <Text style={styles.txt_white}>
-                                            Acheter un ticket  
+                                            Acheter un ticket
                                         </Text>
                                     </View>
                                     <View style={styles.v3}>
@@ -214,10 +216,10 @@ const BuyTicketComponent = ({ navigation, route }) => {
                                     <View>
                                         <Image source={success_or} style={styles.imgsuc} />
                                         <Text style={{ fontSize: 15, fontWeight: 'bold', color: 'orange', top: 10 }}>
-                                                Le paiement à bien été effectué
-                                            </Text>
+                                            Le paiement à bien été effectué
+                                        </Text>
                                     </View>
-                                  
+
                                 </View>
 
 
