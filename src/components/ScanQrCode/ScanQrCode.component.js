@@ -9,6 +9,9 @@ const success = require('../../../assets/check-lg.png');
 const success_or = require('../../../assets/check-lg-or.png');
 const error = require('../../../assets/close-l.png');
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { useSelector, useDispatch } from "react-redux";
+import { getapiConf, getUserConf } from '../../redux/selectors';
+import {ScanQrCode} from '../../api/ScanQrCode/index';
 
 
 const { height } = Dimensions.get('window');
@@ -21,6 +24,8 @@ export default function ScanQrCodeComponent({ navigation }) {
     const hideSplash = () => {
         SplashScreen.hide();
     }
+    const apiConf = useSelector(getapiConf);
+    const userConf = useSelector(getUserConf);
 
     useEffect(() => {
         hideSplash();
@@ -31,19 +36,22 @@ export default function ScanQrCodeComponent({ navigation }) {
     }
 
     const verifQrCode = (event) => {
-        console.log(event.nativeEvent.codeStringValue, 'value')
-        setDataEvent(event.nativeEvent.codeStringValue)
-        if (event.nativeEvent.codeStringValue == 'http://fr.wikipedia.org/') {
-            ShowResult('Ticket Valide')
-        } else {
-            ShowResult('Ticket Non Valide')
-        }
+        // console.log(event.nativeEvent.codeStringValue, 'value')
+        setLoader(true)
+        // Data User
+        const ACTION = '_POINTAGETICKET_';
+        const USR_LOGIN = userConf[0].usr_login;
+        const USR_PASS = userConf[0].usr_pass;
+        const USR_ID = userConf[0].usr_id;
+        const TCK_NUM = event.nativeEvent.codeStringValue;
+        // Data User
+        ScanQrCode(ACTION, USR_LOGIN, USR_PASS, USR_ID, TCK_NUM, setData, apiConf[0].api,  setDataEvent, setLoader, setShowModal)
     }
 
-    const ShowResult = (data) => {
-        setData(data)
-        setShowModal(true)
-    }
+    // const ShowResult = (data) => {
+    //     setData(data)
+    //     setShowModal(true)
+    // }
 
 
     return (
@@ -100,14 +108,14 @@ export default function ScanQrCodeComponent({ navigation }) {
                         <Modal.Body>
                             <View style={{ flexDirection: 'row' }}>
                                 <View>
-                                    {event == 'http://fr.wikipedia.org/' ? (
+                                    {event == 2 || event == 4 ? (
                                         <Image source={success_or} style={styles.imgsuc} />
                                     ) : (
                                         <Image source={error} style={styles.imgsuc} />
                                     )}
                                 </View>
                                 <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                                    {event == 'http://fr.wikipedia.org/' ? (
+                                    {event == 2 || event == 4 ? (
                                         <Text style={{ fontSize: 15, fontWeight: 'bold', color: 'orange', right: 20 }}>
                                             {data}
                                         </Text>
