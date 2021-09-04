@@ -1,7 +1,7 @@
 import { API_USER, UPDATE_USER } from "../actionTypes";
 
 const configIdUser = 37;
-const configActionUser = '_AUTHENTIFICATION_';
+const configActionUser = '_VERIFICATION_';
 
 const defaultState = [
     {
@@ -22,13 +22,16 @@ export const userConf = (state = defaultState, action) => {
         case UPDATE_USER:
             // map te retourne un nouveau state
             return state.map(param => {
+                // console.log(action, 'action')
+                // console.log(param, 'param')
+
                 if (param.id === action.payload.id) {
-                    console.log(action.payload, 'action.payload')
+                    // console.log(action.payload, 'action.payload')
                     return { 
                         id: param.id,
                         usr_id: configIdUser,
-                        usr_pass: action.payload.usr_pass,
-                        usr_login: action.payload.usr_login,
+                        usr_pass: action.payload.data.USR_PASS,
+                        usr_login: action.payload.data.USR_LOGIN,
                         action: configActionUser,
                     }
                 } else {

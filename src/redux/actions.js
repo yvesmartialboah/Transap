@@ -1,4 +1,4 @@
-import {LIST_VOYAGE, API_CONFIG, UPDATE_API} from "./actionTypes";
+import {LIST_VOYAGE, API_CONFIG, UPDATE_API, UPDATE_USER} from "./actionTypes";
 
 // action = {type: NOM_TYPE, payload: data}
 export const fetchVoyageAction = (data) => ({

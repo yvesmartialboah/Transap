@@ -27,13 +27,14 @@ import SplashScreen from 'react-native-splash-screen';
 import { LoginYup } from './yup';
 import { Formik } from 'formik';
 import { useSelector, useDispatch } from "react-redux";
-import { updateUserConfig } from '../../redux/actions';
-import { getUserConf } from '../../redux/selectors';
+import { getUserConf, getapiConf } from '../../redux/selectors';
+import { updateUser } from '../../api/LoginApp/index';
+import Toast from 'react-native-toast-message';
+import AwesomeLoading from 'react-native-awesome-loading';
 
 
 const { height } = Dimensions.get('window');
 const themeColor = '#2D4F6B';
-import Toast from 'react-native-toast-message';
 
 const logo = require('../../../assets/logo_redi.png');
 
@@ -54,31 +55,58 @@ export default function LoginComponent({ navigation }) {
       }
     }
   });
+
+  const [loader, setLoader] = useState(false);
+  const dispatch = useDispatch();
+  const userConf = useSelector(getUserConf);
+  const apiConf = useSelector(getapiConf);
+
   const hideSplash = () => {
     SplashScreen.hide();
   }
 
-  const LoginApp = (param) => {
-    if (param.email == "MOBILE" && param.password == "1234") {
-      navigation.navigate('Dashboard')
-    } else {
-
-    }
-  }
-
-  const dispatch = useDispatch();
-  const userConf = useSelector(getUserConf);
-
   useEffect(() => {
-    console.log(userConf, 'userConf')
+    // console.log(userConf, 'userConf')
     hideSplash();
   });
+
+  const featureLoad = () => {
+    // console.log('test')
+    setLoader(false)
+  }
+
+  const featureLoadErr = () => {
+    // console.log('test')
+    setLoader(false)
+    Toast.show({
+      type: 'error',
+      text1: 'Login ou mot de passe incorrect !!!',
+      text2: 'Veuillez rééssayer svp !!!',
+      position: 'top',
+      visibilityTime: 4000,
+      autoHide: true,
+    })
+  }
+
+  const LoginApp = (param) => {
+    // Data User
+    const ACTION = userConf[0].action;
+    const USR_LOGIN = param.email;
+    const USR_PASS = param.password;
+    const USR_ID = userConf[0].id;
+    setLoader(true)
+    // Data User
+    updateUser(dispatch, ACTION, USR_LOGIN, USR_PASS, USR_ID, featureLoad, apiConf[0].api, navigation, featureLoadErr)
+    // navigation.navigate('Dashboard')
+  }
+
 
 
   // <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
   const [secureTextEntry, setsecureTextEntry] = useState(true);
   return (
     <NativeBaseProvider theme={theme} style={{ height }}>
+      <AwesomeLoading indicatorId={4} size={50} isActive={loader} text="Chargement" />
       <ScrollView style={{ height, backgroundColor: '#fff' }}>
         <Box
           flex={1}
@@ -362,7 +390,7 @@ const styles = StyleSheet.create({
     color: '#c3b27f',
   },
   input: {
-    color: '#c3b27f',
+    color: themeColor,
     // borderColor: '#c3b27f',
     // borderWidth: 1,
   },

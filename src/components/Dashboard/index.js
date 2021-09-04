@@ -1,13 +1,21 @@
-import React from "react"
+import React, {useEffect} from "react"
 import { StyleSheet, Text, View, ImageBackground, Dimensions, ScrollView, TouchableOpacity } from 'react-native'
 import { Stack, Center, Heading, IconButton, Icon, Button, NativeBaseProvider } from "native-base"
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { getUserConf } from '../../redux/selectors';
+import { useSelector, useDispatch } from "react-redux";
 
-export default function DashboardComponent({ navigation }) {
+export default function DashboardComponent({ navigation, route }) {
   const image = require('../../../assets/bgn.png');
   const { height } = Dimensions.get('window');
+  const userConf = useSelector(getUserConf);
+
+  useEffect(()=> {
+      console.log(userConf, 'userConf')
+  }, [route.params.reload.date])
+
   return (
     <ScrollView style={{ height }}>
       <ImageBackground source={image} style={{ height }}>
