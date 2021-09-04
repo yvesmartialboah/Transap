@@ -6,7 +6,7 @@ import Foundation from 'react-native-vector-icons/Foundation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
-export default function TicketsVenduComponent({ navigation }) {
+export default function TicketsNonVenduComponent({ navigation }) {
   const [searchType, setSearchType] = useState('');
   const image = require('../../../assets/bgn.png');
   const { height } = Dimensions.get('window');
@@ -123,7 +123,7 @@ export default function TicketsVenduComponent({ navigation }) {
               <IconButton onPress={() => { navigation.goBack() }} style={styles.iconleft} icon={<Icon size="5" as={<AntDesign name="back" size={24} color="white" />} color="#fff" />} />
             </View>
             <View style={{left: 15, alignItems: 'center', flexDirection: 'row', justifyContent: 'center', width: '63%' }}>
-              <Heading size="md" color='#35424a'> Tickets Vendu (5) </Heading>
+              <Heading size="md" color='#35424a'> Tickets Non Vendu (5) </Heading>
             </View>
             <View style={styles.right}>
               <IconButton 

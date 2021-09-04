@@ -196,6 +196,32 @@ const BuyTicketComponent = ({ navigation, route }) => {
                                         </Button>
                                     </Stack>
 
+
+                                    <Stack mx={4} flexDirection={'row'} justifyContent={'space-around'} mt={8}>
+                                        <Button
+                                            style={{width: '45%'}}
+                                            LeftIcon={<AntDesign name="addfolder" size={24} color="white" />}
+                                            colorScheme="dark"
+                                            bg={'#336e7b'}
+                                            onPress={()=> {
+                                                navigation.navigate('TicketsScanner')
+                                            }}
+                                        >
+                                            Ticket Scannés
+                                        </Button>
+                                        <Button
+                                            style={{width: '45%'}}
+                                            LeftIcon={<AntDesign name="addfolder" size={24} color="white" />}
+                                            colorScheme="dark"
+                                            bg={'#59abe3'}
+                                            onPress={()=> {
+                                                navigation.navigate('TicketsNonVendu')
+                                            }}
+                                        >
+                                            Ticket non Vendu
+                                        </Button>
+                                    </Stack>
+
                                 </View>
                             )}
 
