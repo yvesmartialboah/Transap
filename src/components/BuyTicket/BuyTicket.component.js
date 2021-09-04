@@ -204,7 +204,12 @@ const BuyTicketComponent = ({ navigation, route }) => {
                                             colorScheme="dark"
                                             bg={'#336e7b'}
                                             onPress={()=> {
-                                                navigation.navigate('TicketsScanner')
+                                                navigation.navigate('TicketsScanner',{
+                                                    reload: {
+                                                        date: new Date(),
+                                                        v_id: route.params.voyage.voyage_id
+                                                    }
+                                                })
                                             }}
                                         >
                                             Ticket Scannés
@@ -215,7 +220,12 @@ const BuyTicketComponent = ({ navigation, route }) => {
                                             colorScheme="dark"
                                             bg={'#59abe3'}
                                             onPress={()=> {
-                                                navigation.navigate('TicketsNonVendu')
+                                                navigation.navigate('TicketsNonVendu',{
+                                                    reload: {
+                                                        date: new Date(),
+                                                        v_id: route.params.voyage.voyage_id
+                                                    }
+                                                })
                                             }}
                                         >
                                             Ticket non Vendu

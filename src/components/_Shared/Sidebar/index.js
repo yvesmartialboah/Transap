@@ -101,7 +101,11 @@ export default function SidebarComponent({ props, navigation }) {
                     px={5}
                     py={2}
                     onPress={() => {
-                      navigation.navigate('ListVoyage')
+                      navigation.navigate('ListVoyage', {
+                        getvoy: {
+                          time: new Date()
+                        }
+                      })
                     }}
                   >
                     <HStack space={7} alignItems="center">

@@ -6,7 +6,7 @@ import Foundation from 'react-native-vector-icons/Foundation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
-export default function TicketsScannerComponent({ navigation }) {
+export default function TicketsScannerComponent({ navigation, route }) {
   const [searchType, setSearchType] = useState('');
   const image = require('../../../assets/bgn.png');
   const { height } = Dimensions.get('window');
@@ -45,7 +45,7 @@ export default function TicketsScannerComponent({ navigation }) {
   
   useEffect(() => {
     // 
-  }, []);
+  }, [route.params.reload.date]);
 
   const [listDATA, setlistDATA] = useState(DATA);
   const [checkData, setcheckData] = useState(true);
