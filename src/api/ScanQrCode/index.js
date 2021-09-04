@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const url = '/Layers/Business/Controller/Bs_ApiMobileSiteController.php';
 
-export const ScanQrCode = async (ACTION, USR_LOGIN, USR_PASS, USR_ID, TCK_NUM, setData, apiConf, setDataEvent, setLoader, setShowModal) => {
+export const ScanQrCode = async (ACTION, USR_LOGIN, USR_PASS, USR_ID, TCK_NUM, setData, apiConf, setDataEvent, setLoader, setShowModal, setDate) => {
     try {
         // console.log('Dans ScanQrCode')
         // console.log(apiConf, 'apiConf + url')
@@ -24,6 +24,7 @@ export const ScanQrCode = async (ACTION, USR_LOGIN, USR_PASS, USR_ID, TCK_NUM, s
             setDataEvent(response.data[0].status)
             setData('Ticket Valide')
             setShowModal(true)
+            setDate(new Date())
         }
 
         if(response.data[0].status == 3){
@@ -32,6 +33,7 @@ export const ScanQrCode = async (ACTION, USR_LOGIN, USR_PASS, USR_ID, TCK_NUM, s
             setDataEvent(response.data[0].status)
             setData('Ticket invalide')
             setShowModal(true)
+            setDate(new Date())
         }
 
         if(response.data[0].status == 4){
@@ -40,6 +42,7 @@ export const ScanQrCode = async (ACTION, USR_LOGIN, USR_PASS, USR_ID, TCK_NUM, s
             setDataEvent(response.data[0].status)
             setData('Ticket déjà scanné')
             setShowModal(true)
+            setDate(new Date())
         }
 
     } catch (error) {

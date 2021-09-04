@@ -20,6 +20,7 @@ export default function ScanQrCodeComponent({ navigation }) {
     const [loader, setLoader] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [data, setData] = useState(null);
+    const [date, setDate] = useState(new Date());
     const [event, setDataEvent] = useState(null);
     const hideSplash = () => {
         SplashScreen.hide();
@@ -29,7 +30,7 @@ export default function ScanQrCodeComponent({ navigation }) {
 
     useEffect(() => {
         hideSplash();
-    }, []);
+    }, [date]);
 
     async function capturePhoto() {
         await this.camera.capture();
@@ -45,7 +46,7 @@ export default function ScanQrCodeComponent({ navigation }) {
         const USR_ID = userConf[0].usr_id;
         const TCK_NUM = event.nativeEvent.codeStringValue;
         // Data User
-        ScanQrCode(ACTION, USR_LOGIN, USR_PASS, USR_ID, TCK_NUM, setData, apiConf[0].api,  setDataEvent, setLoader, setShowModal)
+        ScanQrCode(ACTION, USR_LOGIN, USR_PASS, USR_ID, TCK_NUM, setData, apiConf[0].api,  setDataEvent, setLoader, setShowModal, setDate)
     }
 
     // const ShowResult = (data) => {
