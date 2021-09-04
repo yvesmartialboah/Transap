@@ -31,7 +31,7 @@ export default function ScanQrCodeComponent({ navigation }) {
     }
 
     const verifQrCode = (event) => {
-        // console.log(event.nativeEvent.codeStringValue, 'value')
+        console.log(event.nativeEvent.codeStringValue, 'value')
         setDataEvent(event.nativeEvent.codeStringValue)
         if (event.nativeEvent.codeStringValue == 'http://fr.wikipedia.org/') {
             ShowResult('Ticket Valide')

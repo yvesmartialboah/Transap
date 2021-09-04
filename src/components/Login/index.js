@@ -147,9 +147,10 @@ export default function LoginComponent({ navigation }) {
               email: '', //-
               password: ''
             }}
-            onSubmit={(values) => {
+            onSubmit={(values, actions) => {
+              // console.log(values, 'values')
+              actions.resetForm()
               LoginApp(values)
-              console.log(values, 'values')
             }}
           >
             {({
