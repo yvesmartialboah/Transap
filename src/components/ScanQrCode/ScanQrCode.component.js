@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity, Alert, ScrollView, Dimensions, Image } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import { CameraScreen, Camera, CameraType } from 'react-native-camera-kit'; // pas bon
@@ -26,6 +26,7 @@ export default function ScanQrCodeComponent({ navigation, route }) {
     const [date, setDate] = useState(new Date());
     const [event, setDataEvent] = useState(null);
     const [refresh, setRefresh] = useState(false);
+    const refs = useRef()
     const hideSplash = () => {
         SplashScreen.hide();
     }
@@ -33,25 +34,34 @@ export default function ScanQrCodeComponent({ navigation, route }) {
     const userConf = useSelector(getUserConf);
 
     useEffect(() => {
-        console.log(CameraScreen, 'CameraScreen')
-        // setRefresh(!refresh)
-        // hideSplash();
         // console.log(date, 'date')
         // console.log(route.params.reload.date, 'route.params.reload.date')
     }, [date, route.params.reload.date]);
 
-    const verifQrCode = (event) => {
-        console.log(event.nativeEvent.codeStringValue, 'value')
+    const verifQrCode = event => {
+        console.log(event.data, 'value')
         setLoader(true)
         // Data User
         const ACTION = '_POINTAGETICKET_';
         const USR_LOGIN = userConf[0].usr_login;
         const USR_PASS = userConf[0].usr_pass;
         const USR_ID = userConf[0].usr_id;
-        const TCK_NUM = event.nativeEvent.codeStringValue;
+        const TCK_NUM = event;
         // Data User
         ScanQrCode(ACTION, USR_LOGIN, USR_PASS, USR_ID, TCK_NUM, setData, apiConf[0].api, setDataEvent, setLoader, setShowModal, setDate)
     }
+    // const verifQrCode = (event) => {
+    //     console.log(event.nativeEvent.codeStringValue, 'value')
+    //     setLoader(true)
+    //     // Data User
+    //     const ACTION = '_POINTAGETICKET_';
+    //     const USR_LOGIN = userConf[0].usr_login;
+    //     const USR_PASS = userConf[0].usr_pass;
+    //     const USR_ID = userConf[0].usr_id;
+    //     const TCK_NUM = event.nativeEvent.codeStringValue;
+    //     // Data User
+    //     ScanQrCode(ACTION, USR_LOGIN, USR_PASS, USR_ID, TCK_NUM, setData, apiConf[0].api, setDataEvent, setLoader, setShowModal, setDate)
+    // }
 
     // const ShowResult = (data) => {
     //     setData(data)
@@ -80,7 +90,7 @@ export default function ScanQrCodeComponent({ navigation, route }) {
                     <View
                         style={styles.camera2}
                     >
-                        <CameraScreen
+                        {/* <CameraScreen
                             style={styles.camera}
                             // Barcode props
                             scanBarcode={true}
@@ -90,9 +100,27 @@ export default function ScanQrCodeComponent({ navigation, route }) {
                             showFrame={true} // (default false) optional, show frame with transparent layer (qr code or barcode will be read on this area ONLY), start animation for scanner,that stoped when find any code. Frame always at center of the screen
                             laserColor='green' // (default red) optional, color of laser in scanner frame
                             frameColor={'blue'} // (default white) optional, color of border of scanner frame
-                        // captureButtonImage={success_or}
-                        // hideControls={false}
-                        // onBottomButtonPressed={(event) => verifQrCode(event)}
+                        /> */}
+                         <QRCodeScanner
+                            ref={refs}
+                            onRead={verifQrCode}
+                            reactivate={true}
+                            reactivateTimeout={2000}
+                            // reactivateTimeout={2000}
+                            // flashMode={RNCamera.Constants.FlashMode.torch}
+                            topContent={
+                            <Text style={styles.centerText}>
+                                <Text style={styles.textBold}>Scan de ticket</Text>
+
+                            </Text>
+                            }
+                            bottomContent={
+                            <TouchableOpacity 
+                            // onPress={verifQrCode}
+                                style={styles.buttonTouchable}>
+                                <Text style={styles.buttonText}>Scanner</Text>
+                            </TouchableOpacity>
+                            }
                         />
                     </View>
                 )}
@@ -187,7 +215,7 @@ const styles = StyleSheet.create({
     },
     camera2: {
         height: 600,
-        backgroundColor: 'red'
+        // backgroundColor: 'red'
         // alignItems: 'flex-start',
     },
     Titlesection: {
@@ -217,4 +245,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#c3b27f',
         fontSize: 5,
     },
+    buttonText: {
+        fontSize: 16,
+        color: 'white',
+        fontWeight: 'bold'
+    }
 });
