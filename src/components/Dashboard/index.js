@@ -1,4 +1,4 @@
-import React, {useEffect} from "react"
+import React, { useEffect } from "react"
 import { StyleSheet, Text, View, ImageBackground, Dimensions, ScrollView, TouchableOpacity } from 'react-native'
 import { Stack, Center, Heading, IconButton, Icon, Button, NativeBaseProvider } from "native-base"
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -12,8 +12,8 @@ export default function DashboardComponent({ navigation, route }) {
   const { height } = Dimensions.get('window');
   const userConf = useSelector(getUserConf);
 
-  useEffect(()=> {
-      console.log(userConf, 'userConf')
+  useEffect(() => {
+    console.log(userConf, 'userConf')
   }, [route.params.reload.date])
 
   return (
@@ -34,29 +34,33 @@ export default function DashboardComponent({ navigation, route }) {
             <Stack space={5} mt={5} justifyContent="space-between" alignItems="center">
               {/*  */}
               <Stack direction={'row'} space={5} mb={0} style={styles.stack}>
-              <TouchableOpacity
+                <TouchableOpacity
                   onPress={() => {
-                    navigation.navigate('ScanQrCode')
+                    navigation.navigate('ScanQrCode', {
+                      reload: {
+                        date: new Date()
+                      }
+                    })
                   }}
                   activeOpacity={0.8}
                   style={styles.touch}
                 >
-                <Center
-                  size={70}
-                  bg="#c3b27f"
-                  width={'100%'}
-                  rounded={10}
-                  _text={{
-                    color: "white",
-                    fontSize: 12,
-                    fontWeight: 'bold'
-                  }}
-                  shadow={3}
+                  <Center
+                    size={70}
+                    bg="#c3b27f"
+                    width={'100%'}
+                    rounded={10}
+                    _text={{
+                      color: "white",
+                      fontSize: 12,
+                      fontWeight: 'bold'
+                    }}
+                    shadow={3}
                   // mr={2}
-                >
-                  <AntDesign name="scan1" size={30} color="#fff" />
-                  Scanner un ticket
-                </Center>
+                  >
+                    <AntDesign name="scan1" size={30} color="#fff" />
+                    Scanner un ticket
+                  </Center>
                 </TouchableOpacity>
 
                 <TouchableOpacity
@@ -71,22 +75,22 @@ export default function DashboardComponent({ navigation, route }) {
                   activeOpacity={0.8}
                   style={styles.touch}
                 >
-                <Center
-                  bg="#c3b27f"
-                  size={70}
-                  width={'100%'}
-                  rounded={10}
-                  _text={{
-                    color: "white",
-                    fontSize: 12,
-                    fontWeight: 'bold'
-                  }}
-                  shadow={3}
+                  <Center
+                    bg="#c3b27f"
+                    size={70}
+                    width={'100%'}
+                    rounded={10}
+                    _text={{
+                      color: "white",
+                      fontSize: 12,
+                      fontWeight: 'bold'
+                    }}
+                    shadow={3}
                   // ml={2}
-                >
-                  <MaterialIcons name="attach-money" size={30} color="#fff" />
-                  Payer un ticket
-                </Center>
+                  >
+                    <MaterialIcons name="attach-money" size={30} color="#fff" />
+                    Payer un ticket
+                  </Center>
                 </TouchableOpacity>
               </Stack>
               {/*  */}
@@ -97,7 +101,7 @@ export default function DashboardComponent({ navigation, route }) {
 
 
             {/* Deuxième Ligne */}
-              {/* TicketsVendu */}
+            {/* TicketsVendu */}
             <Stack space={5} mt={0} alignItems="center">
               <Stack direction={'row'} space={5} style={styles.stack}>
                 {/* <TouchableOpacity
@@ -168,7 +172,13 @@ export default function DashboardComponent({ navigation, route }) {
             <Button
               // flex={1}
               bgColor={'#c3b27f'}
-              onPress={() => { navigation.navigate('ScanQrCode') }}
+              onPress={() => {
+                navigation.navigate('ScanQrCode', {
+                  reload: {
+                    date: new Date()
+                  }
+                })
+              }}
               // onPress={() => setDirection(direction === "row" ? "column" : "row")}
               startIcon={<AntDesign name="scan1" size={24} color="#fff" />}
             >

@@ -31,7 +31,7 @@ import { getUserConf, getapiConf } from '../../redux/selectors';
 import { updateUser } from '../../api/LoginApp/index';
 import Toast from 'react-native-toast-message';
 import AwesomeLoading from 'react-native-awesome-loading';
-
+import DoubleClick from 'react-native-double-tap';
 
 const { height } = Dimensions.get('window');
 const themeColor = '#2D4F6B';
@@ -57,6 +57,7 @@ export default function LoginComponent({ navigation }) {
   });
 
   const [loader, setLoader] = useState(false);
+  const [config, setConfig] = useState(false);
   const dispatch = useDispatch();
   const userConf = useSelector(getUserConf);
   const apiConf = useSelector(getapiConf);
@@ -125,15 +126,24 @@ export default function LoginComponent({ navigation }) {
             justifyContent="center"
           >
             <View style={styles.line}>
-              {/* <Animatable.View animation='zoomIn' iterationDelay={1000} iterationCount='infinite' direction="alternate" duration={3000}> */}
-              <Image
-                size={150}
-                resizeMode={"contain"}
-                borderRadius={100}
-                source={logo}
-                alt="Alternate Text"
-              />
-              {/* </Animatable.View> */}
+              <Animatable.View animation='fadeInLeft' iterationDelay={1000} iterationCount={1} direction="alternate" duration={3000}>
+              <DoubleClick
+                singleTap={() => {
+                }}
+                doubleTap={() => {
+                  setConfig(!config)
+                }}
+                delay={200}
+              >
+                <Image
+                  size={150}
+                  resizeMode={"contain"}
+                  borderRadius={100}
+                  source={logo}
+                  alt="Alternate Text"
+                />
+              </DoubleClick>
+              </Animatable.View>
             </View>
             <View style={styles.lineSecond}>
               <Text style={styles.text}>Transap</Text>
@@ -283,33 +293,34 @@ export default function LoginComponent({ navigation }) {
                   {/* Première Ligne */}
                   <Stack space={5} mt={5} justifyContent="space-between" alignItems="center">
                     {/*  */}
-                    <Stack direction={'row'} space={5} mb={0} style={styles.stack}>
-                      {/* <TouchableOpacity
-                        onPress={() => {
-                          navigation.navigate('ParamServeur')
-                        }}
-                        activeOpacity={0.8}
-                        style={styles.touch}
-                      >
-                        <Center
-                          size={70}
-                          bg={themeColor}
-                          width={'100%'}
-                          rounded={10}
-                          _text={{
-                            color: "white",
-                            fontSize: 12,
-                            fontWeight: 'bold'
+                    {config == true && (
+                      <Stack direction={'row'} space={5} mb={0} style={styles.stack}>
+                        <TouchableOpacity
+                          onPress={() => {
+                            navigation.navigate('ParamServeur')
                           }}
-                          shadow={3}
-                        // mr={5}
+                          activeOpacity={0.8}
+                          style={styles.touch}
                         >
-                          <MaterialCommunityIcons name="api" size={30} color="#fff" />
-                          Lien du serveur
-                        </Center>
-                      </TouchableOpacity> */}
+                          <Center
+                            size={70}
+                            bg={themeColor}
+                            width={'100%'}
+                            rounded={10}
+                            _text={{
+                              color: "white",
+                              fontSize: 12,
+                              fontWeight: 'bold'
+                            }}
+                            shadow={3}
+                          // mr={5}
+                          >
+                            <MaterialCommunityIcons name="api" size={30} color="#fff" />
+                            Lien du serveur
+                          </Center>
+                        </TouchableOpacity>
 
-                      {/* <TouchableOpacity
+                        {/* <TouchableOpacity
                     onPress={() => {
                       navigation.navigate('ParamLogo')
                     }}
@@ -333,7 +344,8 @@ export default function LoginComponent({ navigation }) {
                     Changer le logo
                   </Center>
                   </TouchableOpacity> */}
-                    </Stack>
+                      </Stack>
+                    )}
                     {/*  */}
 
 

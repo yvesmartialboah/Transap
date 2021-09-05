@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity, Alert, ScrollView, Dimensions, Image } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
-import { CameraScreen } from 'react-native-camera-kit';
+import { CameraScreen, Camera, CameraType } from 'react-native-camera-kit';
 import { NativeBaseProvider, Box, Stack, Button, Modal, IconButton, Icon, Heading } from 'native-base';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import AwesomeLoading from 'react-native-awesome-loading';
@@ -11,17 +11,18 @@ const error = require('../../../assets/close-l.png');
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useSelector, useDispatch } from "react-redux";
 import { getapiConf, getUserConf } from '../../redux/selectors';
-import {ScanQrCode} from '../../api/ScanQrCode/index';
+import { ScanQrCode } from '../../api/ScanQrCode/index';
 
 
 const { height } = Dimensions.get('window');
 
-export default function ScanQrCodeComponent({ navigation }) {
+export default function ScanQrCodeComponent({ navigation, route }) {
     const [loader, setLoader] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [data, setData] = useState(null);
     const [date, setDate] = useState(new Date());
     const [event, setDataEvent] = useState(null);
+    const [refresh, setRefresh] = useState(false);
     const hideSplash = () => {
         SplashScreen.hide();
     }
@@ -29,15 +30,15 @@ export default function ScanQrCodeComponent({ navigation }) {
     const userConf = useSelector(getUserConf);
 
     useEffect(() => {
-        hideSplash();
-    }, [date]);
-
-    async function capturePhoto() {
-        await this.camera.capture();
-    }
+        console.log(CameraScreen, 'CameraScreen')
+        // setRefresh(!refresh)
+        // hideSplash();
+        // console.log(date, 'date')
+        // console.log(route.params.reload.date, 'route.params.reload.date')
+    }, [date, route.params.reload.date]);
 
     const verifQrCode = (event) => {
-        // console.log(event.nativeEvent.codeStringValue, 'value')
+        console.log(event.nativeEvent.codeStringValue, 'value')
         setLoader(true)
         // Data User
         const ACTION = '_POINTAGETICKET_';
@@ -46,7 +47,7 @@ export default function ScanQrCodeComponent({ navigation }) {
         const USR_ID = userConf[0].usr_id;
         const TCK_NUM = event.nativeEvent.codeStringValue;
         // Data User
-        ScanQrCode(ACTION, USR_LOGIN, USR_PASS, USR_ID, TCK_NUM, setData, apiConf[0].api,  setDataEvent, setLoader, setShowModal, setDate)
+        ScanQrCode(ACTION, USR_LOGIN, USR_PASS, USR_ID, TCK_NUM, setData, apiConf[0].api, setDataEvent, setLoader, setShowModal, setDate)
     }
 
     // const ShowResult = (data) => {
@@ -72,36 +73,42 @@ export default function ScanQrCodeComponent({ navigation }) {
                     <Text style={styles.Titlesection}>Scanner le QrCode ici</Text>
                 </View> */}
 
-                <View
-                    style={styles.camera2}
-                >
-                    <CameraScreen
-                        style={styles.camera}
-                        // Barcode props
-                        scanBarcode={true}
-                        onReadCode={(event) => {
-                            verifQrCode(event)
-                        }} // optional
-                        showFrame={true} // (default false) optional, show frame with transparent layer (qr code or barcode will be read on this area ONLY), start animation for scanner,that stoped when find any code. Frame always at center of the screen
-                        laserColor='green' // (default red) optional, color of laser in scanner frame
-                        frameColor='white' // (default white) optional, color of border of scanner frame
-                    />
-                </View>
+                {showModal == false && (
+                    <View
+                        style={styles.camera2}
+                    >
+                        <CameraScreen
+                            style={styles.camera}
+                            // Barcode props
+                            scanBarcode={true}
+                            onReadCode={(event) => {
+                                verifQrCode(event)
+                            }} // optional
+                            showFrame={true} // (default false) optional, show frame with transparent layer (qr code or barcode will be read on this area ONLY), start animation for scanner,that stoped when find any code. Frame always at center of the screen
+                            laserColor='green' // (default red) optional, color of laser in scanner frame
+                            frameColor={'blue'} // (default white) optional, color of border of scanner frame
+                        // captureButtonImage={success_or}
+                        // hideControls={false}
+                        // onBottomButtonPressed={(event) => verifQrCode(event)}
+                        />
+                    </View>
+                )}
 
 
-                <Stack space={0} justifyContent={'center'} flexDirection={'row'} alignItems={'flex-start'} mt={0} height={'20%'}>
+
+                {/* <Stack space={0} justifyContent={'center'} flexDirection={'row'} alignItems={'flex-start'} mt={0} height={'20%'}>
                     <Button
                         // flex={1}
                         // bgColor={'#c3b27f'}
                         bgColor={'transparent'}
-                        // onPress={() => {
-                        //   capturePhoto()
-                        // }}
+                        onPress={(param) => {
+                            // 
+                        }}
                         startIcon={<AntDesign name="scan1" size={24} color="#fff" />}
                     >
                         Scanner
                     </Button>
-                </Stack>
+                </Stack> */}
                 <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
                     <Modal.Content maxWidth="400px">
                         <Modal.CloseButton />
@@ -172,11 +179,11 @@ const styles = StyleSheet.create({
         color: 'black',
     },
     camera: {
-        height: 400,
+        // height: 300,
         // alignItems: 'flex-start',
     },
     camera2: {
-        height: 500,
+        height: 600,
         backgroundColor: 'red'
         // alignItems: 'flex-start',
     },
