@@ -190,7 +190,7 @@ export default function LoginComponent({ navigation }) {
                 <VStack space={2} mt={5}>
                   <FormControl isRequired isInvalid={(errors.email && touched.email)}>
                     <FormControl.Label _text={{ color: { themeColor }, fontSize: 'sm', fontWeight: 600 }}>
-                      Pseudo
+                      Login
                     </FormControl.Label>
                     <Input
                       onChangeText={handleChange('email')}
