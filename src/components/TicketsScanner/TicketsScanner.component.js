@@ -5,49 +5,72 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Foundation from 'react-native-vector-icons/Foundation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import AwesomeLoading from 'react-native-awesome-loading';
+import {fetchListTicket} from '../../api/ListTicket/index';
+import { useSelector, useDispatch } from "react-redux";
+import { getapiConf, getUserConf } from '../../redux/selectors';
 
 export default function TicketsScannerComponent({ navigation, route }) {
   const [searchType, setSearchType] = useState('');
   const image = require('../../../assets/bgn.png');
   const { height } = Dimensions.get('window');
-  const DATA = [
-    {
-      id: 'bd7acbea-c1b1-464c2-aed5-3ad53abb28bazqs',
-      title: 'DM-0065/20',
-      name: 'Ticket Express',
-      date: '2021-01-01',
-    },
-    {
-      id: '3ac68afc-c605-48d3-a4f38-fbd91aa97f63za',
-      title: 'DM-0067/20',
-      name: 'Ticket Express',
-      date: '2021-01-05',
-    },
-    {
-      id: '58694a0f-3da1-4712f-bd96-145571e29d72z',
-      title: 'DM-0065/20',
-      name: 'Ticket Express',
-      date: '2021-01-07',
-    },
-    {
-      id: '58694a0f-3da1-4471f-bd96-145571e29d72c',
-      title: 'DM-0065/20',
-      name: 'INCONNU',
-      date: '2021-01-07',
-    },
-    {
-      id: '58694a0f-3da1-4711f-bd96-145571e29d72z',
-      title: 'DM-0065/20',
-      name: 'INCONNU',
-      date: '2021-01-07',
-    }
-  ];
+  const [listTicket, setListTicket] = useState(null);
+  const [listTicketCount, setListTicketCount] = useState(0);
+  const apiConf = useSelector(getapiConf);
+  const userConf = useSelector(getUserConf);
+  const [loader, setLoader] = useState(true);
+  const featureLoad = () => {
+    // console.log('test')
+    setLoader(false)
+  }
+  // const DATA = [
+  //   {
+  //     id: 'bd7acbea-c1b1-464c2-aed5-3ad53abb28bazqs',
+  //     title: 'DM-0065/20',
+  //     name: 'Ticket Express',
+  //     date: '2021-01-01',
+  //   },
+  //   {
+  //     id: '3ac68afc-c605-48d3-a4f38-fbd91aa97f63za',
+  //     title: 'DM-0067/20',
+  //     name: 'Ticket Express',
+  //     date: '2021-01-05',
+  //   },
+  //   {
+  //     id: '58694a0f-3da1-4712f-bd96-145571e29d72z',
+  //     title: 'DM-0065/20',
+  //     name: 'Ticket Express',
+  //     date: '2021-01-07',
+  //   },
+  //   {
+  //     id: '58694a0f-3da1-4471f-bd96-145571e29d72c',
+  //     title: 'DM-0065/20',
+  //     name: 'INCONNU',
+  //     date: '2021-01-07',
+  //   },
+  //   {
+  //     id: '58694a0f-3da1-4711f-bd96-145571e29d72z',
+  //     title: 'DM-0065/20',
+  //     name: 'INCONNU',
+  //     date: '2021-01-07',
+  //   }
+  // ];
+
+  // Data User
+  const ACTION = '_TICKETPOINTES_';
+  const USR_LOGIN = userConf[0].usr_login;
+  const USR_PASS =  userConf[0].usr_pass;
+  const USR_ID = userConf[0].usr_id;
+  const V_ID = route.params.reload.v_id;
+  // Data User
   
   useEffect(() => {
-    // 
+    console.log(route.params.reload.date, 'route.params.reload.date')
+    setLoader(true)
+    fetchListTicket(ACTION,USR_LOGIN,USR_PASS,USR_ID, featureLoad, apiConf[0].api, V_ID, setListTicket, setListTicketCount)
   }, [route.params.reload.date]);
 
-  const [listDATA, setlistDATA] = useState(DATA);
+  const [listDATA, setlistDATA] = useState(listTicket);
   const [checkData, setcheckData] = useState(true);
 
   const onTypeChange = (val) => {
@@ -81,16 +104,17 @@ export default function TicketsScannerComponent({ navigation, route }) {
       <ScrollView>
       <Stack space={5} mt={5} justifyContent="center" alignItems="center">
         <Stack direction={'column'} space={5} mb={0} style={styles.stack}>
-          <TouchableOpacity
+          <View
             onPress={()=>{
-              navigation.navigate('AddFeat')
+              // navigation.navigate('AddFeat')
             }}
           style={styles.round}>
             <Text style={styles.txt_white}>
-              {item.title}
+              {item.TCK_NUM}
             </Text>
             <Text style={styles.txt_white_sub}>
-              {item.name}
+              {/* {item.TCK_LIB} */}
+              {item.TCK_PRIX} FCFA
             </Text>
 
             <View style={styles.parent_white_sub}>
@@ -99,12 +123,12 @@ export default function TicketsScannerComponent({ navigation, route }) {
               </View>
               <View style={styles.View_white_sub4}>
                 <Text style={styles.txt_white_sub3}>
-                  {item.date}
+                  {/* {item.date} */}
                 </Text>
               </View>
             </View>
 
-          </TouchableOpacity>
+          </View>
         </Stack>
       </Stack>
       </ScrollView>
@@ -115,6 +139,7 @@ export default function TicketsScannerComponent({ navigation, route }) {
 
   return (
     <NativeBaseProvider>
+      <AwesomeLoading indicatorId={4} size={50} isActive={loader} text="Chargement" />
       <ImageBackground source={image} style={{ height }}>
         <Stack space={5} mt={0} height={'100%'}>
           {/* title */}
@@ -123,20 +148,20 @@ export default function TicketsScannerComponent({ navigation, route }) {
               <IconButton onPress={() => { navigation.goBack() }} style={styles.iconleft} icon={<Icon size="5" as={<AntDesign name="back" size={24} color="white" />} color="#fff" />} />
             </View>
             <View style={{left: 15, alignItems: 'center', flexDirection: 'row', justifyContent: 'center', width: '63%' }}>
-              <Heading size="md" color='#35424a'> Tickets Scannés (5) </Heading>
+              <Heading size="md" color='#35424a'> Tickets Scannés ({listTicketCount}) </Heading>
             </View>
             <View style={styles.right}>
-              <IconButton 
+              {/* <IconButton 
               onPress={() => { 
                 // navigation.goBack()
               }} 
               style={styles.iconleft} 
-              icon={<Icon size="5" as={<AntDesign name="download" size={24} color="#fff" />} color="#fff" />} />
+              icon={<Icon size="5" as={<AntDesign name="download" size={24} color="#fff" />} color="#fff" />} /> */}
             </View>
           </View>
 
           {/* search input */}
-          <View style={{ alignItems: 'center', flexDirection: 'row', justifyContent: 'center', width: '100%' }}>
+          {/* <View style={{ alignItems: 'center', flexDirection: 'row', justifyContent: 'center', width: '100%' }}>
             <VStack width="90%">
               <Input
                 onChangeText={(val) => {
@@ -159,13 +184,15 @@ export default function TicketsScannerComponent({ navigation, route }) {
                 InputLeftElement={<Icon size='sm' ml={2} size={5} color="gray.400" as={<Ionicons name="ios-search" />} />}
               />
             </VStack>
-          </View>
+          </View> */}
           {/* search input */}
-          {checkData == false ? <Text>NoData</Text> :
+          {listTicketCount == 0 ? <Text
+          style={{alignText: 'center'}}
+          > Aucun ticket scannés</Text> :
           <FlatList
-            data={listDATA}
+            data={listTicketCount != 0 ? listTicket : listDATA}
             renderItem={_renderItem}
-            keyExtractor={item => item.id.toString()}
+            keyExtractor={item => item.TCK_NUM.toString()}
           // ItemSeparatorComponent = {() => <View style={styles.separator} />}
           />}  
           

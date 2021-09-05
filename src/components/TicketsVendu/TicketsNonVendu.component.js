@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react"
+import React, { useState, useEffect } from "react"
 import { StyleSheet, Text, View, ImageBackground, Dimensions, FlatList, TouchableOpacity, ScrollView } from 'react-native'
 import { Box, VStack, Stack, Center, Heading, IconButton, Icon, Button, NativeBaseProvider, Input } from "native-base"
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -6,7 +6,7 @@ import Foundation from 'react-native-vector-icons/Foundation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import AwesomeLoading from 'react-native-awesome-loading';
-import {fetchListTicket} from '../../api/ListTicket/index';
+import { fetchListTicket } from '../../api/ListTicket/index';
 import { useSelector, useDispatch } from "react-redux";
 import { getapiConf, getUserConf } from '../../redux/selectors';
 
@@ -14,7 +14,7 @@ export default function TicketsNonVenduComponent({ navigation, route }) {
   const [searchType, setSearchType] = useState('');
   const [listTicket, setListTicket] = useState(null);
   const [listTicketCount, setListTicketCount] = useState(0);
-  const [loader, setLoader] = useState(false);
+  const [loader, setLoader] = useState(true);
   const apiConf = useSelector(getapiConf);
   const userConf = useSelector(getUserConf);
   const image = require('../../../assets/bgn.png');
@@ -55,18 +55,19 @@ export default function TicketsNonVenduComponent({ navigation, route }) {
   //     date: '2021-01-07',
   //   }
   // ];
-  
-    // Data User
-    const ACTION = '_TICKETNONVENDU_';
-    const USR_LOGIN = userConf[0].usr_login;
-    const USR_PASS =  userConf[0].usr_pass;
-    const USR_ID = userConf[0].usr_id;
-    const V_ID = route.params.reload.v_id;
-    // Data User
+
+  // Data User
+  const ACTION = '_TICKETNONVENDU_';
+  const USR_LOGIN = userConf[0].usr_login;
+  const USR_PASS = userConf[0].usr_pass;
+  const USR_ID = userConf[0].usr_id;
+  const V_ID = route.params.reload.v_id;
+  // Data User
 
   useEffect(() => {
+    console.log(route.params.reload.date, 'route.params.reload.date')
     setLoader(true)
-    fetchListTicket(ACTION,USR_LOGIN,USR_PASS,USR_ID, featureLoad, apiConf[0].api, V_ID, setListTicket, setListTicketCount)
+    fetchListTicket(ACTION, USR_LOGIN, USR_PASS, USR_ID, featureLoad, apiConf[0].api, V_ID, setListTicket, setListTicketCount)
   }, [route.params.reload.date]);
 
   const [listDATA, setlistDATA] = useState(listTicket);
@@ -83,7 +84,7 @@ export default function TicketsNonVenduComponent({ navigation, route }) {
     if (!text || text === '') {
       setcheckData(true)
       setlistDATA(listTicket)
-    } 
+    }
     else if (filteredName.length == 0) {
       // set no data flag to true so as to render flatlist conditionally
       // console.log(filteredName, 'filteredName')
@@ -95,41 +96,41 @@ export default function TicketsNonVenduComponent({ navigation, route }) {
       setcheckData(true)
       setlistDATA(filteredName)
     }
-    
+
   }
 
   const _renderItem = ({ item }) => {
     return (
       <ScrollView>
-      <Stack space={5} mt={5} justifyContent="center" alignItems="center">
-        <Stack direction={'column'} space={5} mb={0} style={styles.stack}>
-          <TouchableOpacity
-            onPress={()=>{
-              navigation.navigate('AddFeat')
-            }}
-          style={styles.round}>
-            <Text style={styles.txt_white}>
-              {item.TCK_NUM}
-            </Text>
-            <Text style={styles.txt_white_sub}>
-              {/* {item.TCK_LIB} */}
-              {item.TCK_PRIX} FCFA
-            </Text>
+        <Stack space={5} mt={5} justifyContent="center" alignItems="center">
+          <Stack direction={'column'} space={5} mb={0} style={styles.stack}>
+            <View
+              onPress={() => {
+                // navigation.navigate('AddFeat')
+              }}
+              style={styles.round}>
+              <Text style={styles.txt_white}>
+                {item.TCK_NUM}
+              </Text>
+              <Text style={styles.txt_white_sub}>
+                {/* {item.TCK_LIB} */}
+                {item.TCK_PRIX} FCFA
+              </Text>
 
-            <View style={styles.parent_white_sub}>
-              <View style={styles.View_white_sub3}>
-                {/* <AntDesign name="rightcircleo" size={20} color={'#fff'} style={styles.icon_sub3} /> */}
+              <View style={styles.parent_white_sub}>
+                <View style={styles.View_white_sub3}>
+                  {/* <AntDesign name="rightcircleo" size={20} color={'#fff'} style={styles.icon_sub3} /> */}
+                </View>
+                <View style={styles.View_white_sub4}>
+                  <Text style={styles.txt_white_sub3}>
+                    {/* {item.date} */}
+                  </Text>
+                </View>
               </View>
-              <View style={styles.View_white_sub4}>
-                <Text style={styles.txt_white_sub3}>
-                  {/* {item.date} */}
-                </Text>
-              </View>
+
             </View>
-
-          </TouchableOpacity>
+          </Stack>
         </Stack>
-      </Stack>
       </ScrollView>
     );
   }
@@ -146,7 +147,7 @@ export default function TicketsNonVenduComponent({ navigation, route }) {
             <View style={styles.left}>
               <IconButton onPress={() => { navigation.goBack() }} style={styles.iconleft} icon={<Icon size="5" as={<AntDesign name="back" size={24} color="white" />} color="#fff" />} />
             </View>
-            <View style={{left: 15, alignItems: 'center', flexDirection: 'row', justifyContent: 'center', width: '63%' }}>
+            <View style={{ left: 15, alignItems: 'center', flexDirection: 'row', justifyContent: 'center', width: '63%' }}>
               <Heading size="md" color='#35424a'> Tickets Non Vendu ({listTicketCount}) </Heading>
             </View>
             <View style={styles.right}>
@@ -161,7 +162,7 @@ export default function TicketsNonVenduComponent({ navigation, route }) {
           </View>
 
           {/* search input */}
-          <View style={{ alignItems: 'center', flexDirection: 'row', justifyContent: 'center', width: '100%' }}>
+          {/* <View style={{ alignItems: 'center', flexDirection: 'row', justifyContent: 'center', width: '100%' }}>
             <VStack width="90%">
               <Input
                 onChangeText={(val) => {
@@ -184,17 +185,22 @@ export default function TicketsNonVenduComponent({ navigation, route }) {
                 InputLeftElement={<Icon size='sm' ml={2} size={5} color="gray.400" as={<Ionicons name="ios-search" />} />}
               />
             </VStack>
-          </View>
+          </View> */}
           {/* search input */}
-          {listTicketCount == 0 ? <Text>NoData</Text> :
-          <FlatList
-            // data={listDATA}
-            data={listTicketCount != 0 ? listTicket : listDATA}
-            renderItem={_renderItem}
-            keyExtractor={item => item.TCK_ID.toString()}
-          // ItemSeparatorComponent = {() => <View style={styles.separator} />}
-          />}  
-          
+          {listTicketCount == 0 ?
+            <Text
+            style={{alignText: 'center'}}
+            >
+              Aucun ticket créer
+            </Text> :
+            <FlatList
+              // data={listDATA}
+              data={listTicketCount != 0 ? listTicket : listDATA}
+              renderItem={_renderItem}
+              keyExtractor={item => item.TCK_ID.toString()}
+            // ItemSeparatorComponent = {() => <View style={styles.separator} />}
+            />}
+
 
           <Box></Box>
           <Box></Box>
