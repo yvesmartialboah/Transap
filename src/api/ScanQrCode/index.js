@@ -27,11 +27,11 @@ export const ScanQrCode = async (ACTION, USR_LOGIN, USR_PASS, USR_ID, TCK_NUM, s
             setDate(new Date())
         }
 
-        if(response.data[0].status == 3){
+        if(response.data[0].status == 6){
             // Ticket inexistant 
             setLoader(false)
             setDataEvent(response.data[0].status)
-            setData('Ticket invalide')
+            setData("Ce ticket n'existe pas.")
             setShowModal(true)
             setDate(new Date())
         }

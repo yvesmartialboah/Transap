@@ -46,7 +46,7 @@ export default function ScanQrCodeComponent({ navigation, route }) {
         const USR_LOGIN = userConf[0].usr_login;
         const USR_PASS = userConf[0].usr_pass;
         const USR_ID = userConf[0].usr_id;
-        const TCK_NUM = event;
+        const TCK_NUM = event.data;
         // Data User
         ScanQrCode(ACTION, USR_LOGIN, USR_PASS, USR_ID, TCK_NUM, setData, apiConf[0].api, setDataEvent, setLoader, setShowModal, setDate)
     }
