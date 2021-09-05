@@ -284,7 +284,7 @@ export default function LoginComponent({ navigation }) {
                   <Stack space={5} mt={5} justifyContent="space-between" alignItems="center">
                     {/*  */}
                     <Stack direction={'row'} space={5} mb={0} style={styles.stack}>
-                      <TouchableOpacity
+                      {/* <TouchableOpacity
                         onPress={() => {
                           navigation.navigate('ParamServeur')
                         }}
@@ -307,7 +307,7 @@ export default function LoginComponent({ navigation }) {
                           <MaterialCommunityIcons name="api" size={30} color="#fff" />
                           Lien du serveur
                         </Center>
-                      </TouchableOpacity>
+                      </TouchableOpacity> */}
 
                       {/* <TouchableOpacity
                     onPress={() => {

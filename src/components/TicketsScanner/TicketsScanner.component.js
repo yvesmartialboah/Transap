@@ -113,8 +113,8 @@ export default function TicketsScannerComponent({ navigation, route }) {
               {item.TCK_NUM}
             </Text>
             <Text style={styles.txt_white_sub}>
-              {/* {item.TCK_LIB} */}
-              {item.TCK_PRIX} FCFA
+              {item.TCK_LIB}
+              {/* {item.TCK_PRIX} FCFA */}
             </Text>
 
             <View style={styles.parent_white_sub}>
