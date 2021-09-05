@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity, Alert, ScrollView, Dimensions, Image } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
-import { CameraScreen, Camera, CameraType } from 'react-native-camera-kit';
+import { CameraScreen, Camera, CameraType } from 'react-native-camera-kit'; // pas bon
 import { NativeBaseProvider, Box, Stack, Button, Modal, IconButton, Icon, Heading } from 'native-base';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import AwesomeLoading from 'react-native-awesome-loading';
@@ -12,6 +12,9 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useSelector, useDispatch } from "react-redux";
 import { getapiConf, getUserConf } from '../../redux/selectors';
 import { ScanQrCode } from '../../api/ScanQrCode/index';
+
+import QRCodeScanner from 'react-native-qrcode-scanner';
+import { RNCamera } from 'react-native-camera';
 
 
 const { height } = Dimensions.get('window');
