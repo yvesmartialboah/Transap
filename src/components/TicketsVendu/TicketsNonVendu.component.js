@@ -10,6 +10,7 @@ import { fetchListTicket } from '../../api/ListTicket/index';
 import { useSelector, useDispatch } from "react-redux";
 import { getapiConf, getUserConf } from '../../redux/selectors';
 
+const themeColor = '#2D4F6B';
 export default function TicketsNonVenduComponent({ navigation, route }) {
   const [searchType, setSearchType] = useState('');
   const [listTicket, setListTicket] = useState(null);
@@ -241,7 +242,8 @@ const styles = StyleSheet.create({
   },
   iconleft: {
     left: 15,
-    backgroundColor: '#c3b27f',
+    backgroundColor: themeColor,
+    // backgroundColor: '#c3b27f',
     fontSize: 5,
   },
   image: {
@@ -250,7 +252,8 @@ const styles = StyleSheet.create({
   round: {
     width: '100%',
     height: 60,
-    backgroundColor: '#c3b27f',
+    backgroundColor: themeColor,
+    // backgroundColor: '#c3b27f',
     // alignItems:'center', 
     borderColor: '#c3b27f',
     borderWidth: 1,
@@ -258,7 +261,8 @@ const styles = StyleSheet.create({
   },
   txt_white: {
     fontSize: 14,
-    color: '#336e7b',
+    color: '#c3b27f',
+    // color: '#336e7b',
     fontWeight: 'bold',
     textAlign: 'left',
     marginLeft: 10,

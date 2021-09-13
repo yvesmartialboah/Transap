@@ -10,6 +10,7 @@ import { getvoyage, getapiConf, getUserConf } from '../../redux/selectors';
 import {fetchVoyage} from '../../api/ListVoyage/index';
 import AwesomeLoading from 'react-native-awesome-loading';
 
+const themeColor = '#2D4F6B';
 export default function ListVoyageComponent({ navigation, route }) {
   const voyage = useSelector(getvoyage);
   const apiConf = useSelector(getapiConf);
@@ -255,7 +256,8 @@ const styles = StyleSheet.create({
   },
   iconleft: {
     left: 15,
-    backgroundColor: '#c3b27f',
+    backgroundColor: themeColor,
+    // backgroundColor: '#c3b27f',
     fontSize: 5,
   },
   image: {
@@ -264,7 +266,8 @@ const styles = StyleSheet.create({
   round: {
     width: '100%',
     height: 180,
-    backgroundColor: '#c3b27f',
+    backgroundColor: themeColor,
+    // backgroundColor: '#c3b27f',
     // alignItems:'center', 
     borderColor: '#c3b27f',
     borderWidth: 1,
@@ -272,7 +275,7 @@ const styles = StyleSheet.create({
   },
   txt_white: {
     fontSize: 14,
-    color: '#336e7b',
+    color: '#c3b27f',
     fontWeight: 'bold',
     textAlign: 'left',
     marginLeft: 10,

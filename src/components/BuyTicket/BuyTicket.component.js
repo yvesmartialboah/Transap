@@ -26,6 +26,7 @@ import { getapiConf, getUserConf } from '../../redux/selectors';
 const success = require('../../../assets/check-lg.png');
 const success_or = require('../../../assets/check-lg-or.png');
 const error = require('../../../assets/close-l.png');
+const themeColor = '#2D4F6B';
 
 const BuyTicketComponent = ({ navigation, route }) => {
     const [showModal, setShowModal] = useState(false);

@@ -107,7 +107,7 @@ export default function LoginComponent({ navigation }) {
   const [secureTextEntry, setsecureTextEntry] = useState(true);
   return (
     <NativeBaseProvider theme={theme} style={{ height }}>
-      <AwesomeLoading indicatorId={4} size={50} isActive={loader} text="Chargement" />
+      <AwesomeLoading indicatorId={5} size={50} isActive={loader} text="Chargement" />
       <ScrollView style={{ height, backgroundColor: '#fff' }}>
         <Box
           flex={1}
@@ -214,7 +214,7 @@ export default function LoginComponent({ navigation }) {
                         />
                       }
                       style={styles.input}
-                      placeholder='transap@contact.ci' />
+                      placeholder='transap' />
                     <View style={styles.alert}>
                       {(errors.email && touched.email) &&
                         <FormControl.ErrorMessage>
