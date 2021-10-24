@@ -217,7 +217,8 @@ export default function ListVoyageComponent({ navigation, route }) {
             <FlatList
               data={listDATA.length == 0 ? voyage : listDATA}
               renderItem={_renderItem}
-              keyExtractor={item => item.V_ID.toString()}
+              keyExtractor={item => item.V_ID}
+              // keyExtractor={item => item.V_ID.toString()}
             // ItemSeparatorComponent = {() => <View style={styles.separator} />}
             />}
 
